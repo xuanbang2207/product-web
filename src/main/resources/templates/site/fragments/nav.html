@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+</head>
+
+<body>
+  <div th:fragment="nav">
+    <nav class="row">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light col">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#" th:href="@{/site/customers}">
+                <i class="fa-solid fa-house"></i>Trang Chủ <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/site/customers/about-us}"><i class="fas fa-list-alt"></i> Giới Thiệu</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/site/customers/contact-us}"><i class="fas fa-phone"></i>
+                Liên Hệ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/site/customers/feedback}" href="#"><i class="fas fa-mail-bulk"></i> Góp
+                Ý</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/site/customers/FAQs}"><i class="fas fa-question"></i> Hỏi Đáp</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>
+                Tài Khoản
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="#">Đăng Nhập</a>
+                <a class="dropdown-item" href="#">Quên mạt khẩu</a>
+                <a class="dropdown-item" href="#">Đăng ký</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Đăng xuất</a>
+                <a class="dropdown-item" href="#">Đổi mật khẩu</a>
+                <a class="dropdown-item" href="#">Cập nhật</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Đơn hàng</a>
+                <a class="dropdown-item" href="#">Hàng đã mua</a>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" th:href="@{/site/customers/feedback}">
+                <span class="">Giỏ hàng</span>
+                <span class="fas fa-cart-plus"></span>
+                <span class="">2</span>
+                
+                </a>
+            </li>
+          </ul>
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a href="" class="nav-link">English</a>
+            </li>
+            <li class="nav-item">
+              <a href="" class="nav-link">Tiếng Việt</a>
+            </li>
+          </ul>
+
+
+        </div>
+      </nav>
+    </nav>
+  </div>
+</body>

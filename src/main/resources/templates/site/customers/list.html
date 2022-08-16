@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+                layout:decorate="~{site/dashboardLayoutHome.html}">
+
+<head>
+</head>
+
+<body>
+
+    <div class="row" layout:fragment="content">
+        <div class="card col-3 p-0 m-4" th:each="product : ${products}">
+            <div class="card-body p-0">
+                
+                    <a th:href="@{'/site/customers/detail/' +  ${product.productId} }">
+                        <img id="image"
+                            th:src="${product.image!= null? '/admin/products/images/' + product.image : '/images/chuot.jpg'}"
+                            width="100%" class="img-fluid" alt="" height="150">
+                    </a>
+                
+            </div>
+            <div class="card-footer" >
+
+                <p class="mb-0 " th:text="${product.name}"></p>
+                <p class="mb-0 badge badge-info" th:text="${product.unitPrice}"></p>
+                <div class="row float-right" th:data-id="${product.productId}" >
+                    <a th:onclick="'alert(\'this is alert\');'" class="btn btn-danger ml-4" href=""><i class="fas fa-cart-plus"></i></a>
+                    <a class="btn btn-primary float-right btn-star"  href=""><i class="fas fa-star"></i></a>
+                </div>
+               
+            </div>
+        </div>
+
+    </div>
+
+
+
+</body>
+
+</html>

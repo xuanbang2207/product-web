@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+
+</head>
+
+<body>
+  <aside th:fragment="footer">
+
+    <div class="card mt-2">
+      <div class="card-header">Tìm kiếm</div>
+      <div class="card-body">
+        <form action="" th:action="@{/site/customers/search}">
+          <input type="text" class="form-control" placeholder="Tìm kiếm" name="name">
+        </form>
+      </div>
+    </div>
+
+    <div class="card mt-2">
+      <div class="card-header"><i class="fas fa-list"></i> DANH MỤC</div>
+
+      <ul class="list-group" th:each="cate : ${categories}">
+        <a class="list-group-item" th:href="@{'/site/customers/by-category/' + ${cate.categoryId}}"
+          th:text="${cate.name}">category</a>
+
+      </ul>
+    </div>
+
+    <div class="card mt-2">
+      <div class="card">
+        <div class="card-header">
+          <i class="fas fa-th-list"></i>
+         HÀNG ĐẶC BIỆT
+        </div>
+        <ul class="list-group">
+          <a class="list-group-item " th:href="@{/site/customers}"> Xem nhiều</a>
+          <a class="list-group-item " th:href="@{/site/customers}"> Xem nhiều</a>
+          <a class="list-group-item " th:href="@{/site/customers}"> Xem nhiều</a>
+          <a class="list-group-item " th:href="@{/site/customers}"> Xem nhiều</a>
+          <a class="list-group-item " th:href="@{/site/customers}"> Xem nhiều</a>
+         
+        </ul>
+      </div>
+
+    </div>
+
+
+  </aside>
+</body>
+
+</html>
