@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.home.domain.Account;
-import com.home.model.AdminLoginDto;
+import com.home.model.AdimAccount;
 import com.home.service.AccountService;
 
 @Controller
@@ -26,18 +26,18 @@ public class AdminLoginController {
 
     @GetMapping("alogin")
     public String login(ModelMap model) {
-	model.addAttribute("account", new AdminLoginDto());
+	model.addAttribute("account", new AdimAccount());
 	return "/admin/accounts/login";
     }
 
     @PostMapping("alogin")
 
-    public ModelAndView login(ModelMap model, @Valid @ModelAttribute("account") AdminLoginDto dto,
+    public ModelAndView login(ModelMap model, @Valid @ModelAttribute("account") AdimAccount dto,
 	    BindingResult result) {
 	if (result.hasErrors()) {
 	    return new ModelAndView("/admin/accounts/login", model);
 	}
-	Account account = accountService.login(dto.getUsername(), dto.getPassword());
+	Account account = accountService.login(dto.getName(), dto.getPassword());
 
 	if (account == null) {
 	    model.addAttribute("message", "Invalid username or password");

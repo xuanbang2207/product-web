@@ -15,15 +15,22 @@
                         <i th:text="${message}">message</i>
                     </div>
                     <div class="col">
-                        <form th:action="@{/admin/products/search}">
+                        <form th:action="@{/admin/products}">
                             <div class="form-inline float-left">
                                 <label for="name">Name:</label>
                                 <input type="text" class="form-control ml-2" name="name" id="name"
-                                    aria-describedby="nameHid" placeholder="Name">
+                                    aria-describedby="nameHid" placeholder="Name" >
                                 <small id="nameHid" class="form-text text-muted"></small>
                                 <button class="btn btn-outline-primary ml-2">Search</button>
                             </div>
+                            <select class="ml-3" name="sort" id="" >
+                                <option  value="name">Tên</option>
+                                <option  value="quantity">Số lượng</option>
+                                <option  value="unitPrice">Giá</option>
+                                <option  value="discount">Giảm giá</option>
+                            </select>
                         </form>
+                        
                         <div class="float-right">
                             <a class="btn btn-outline-primary" th:href="@{/admin/products/add}">Add New Product</a>
                         </div>
@@ -37,20 +44,24 @@
                                 <th>Quantity</th>
                                 <th>Unit Price</th>
                                 <th>Discount</th>
-                                <th>Status</th>
+                                <th>EnteredDate</th>
+                                <th>ViewCount</th>
                                 <th>Categoty</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="item, iStart : ${products}">
+                            <tr th:each="item, iStart : ${pages.content}">
                                 <td><input type="checkbox" class="form-check-inline" name="" id=""></td>
-                                <td><img src="/images/chuot.jpg" width="70" class="img-fluid" alt=""></td>
+                                <td> <img id="image"
+                                    th:src="${item.image!= null? '/admin/products/images/' + item.image : '/images/chuot.jpg'}"
+                                      alt="" height="40px"></td>
                                 <td name="name" th:text="${item.name}">Hat</td>
                                 <td th:text="${item.quantity}">500</td>
                                 <td th:text="${item.unitPrice}">50.3</td>
                                 <td th:text="${item.discount}">5%</td>
-                                <td th:text="${item.status}">BestSeller</td>
+                                <td th:text="${item.enteredDate}">2018/2/4</td>
+                                <td th:text="${item.viewCount == null ? '0' : item.viewCount}">2018/2/4</td>
                                 <td th:text="${item.category.name}">Clothes</td>
                                 <td>
                                     
@@ -63,6 +74,15 @@
                             </tr>                            
                         </tbody>
                     </table>
+
+                    <nav aria-label="Page navigation" >
+                        <ul class="pagination">
+                            <li class="page-item" aria-current="page" th:each="i : ${#numbers.sequence(0, pages.totalPages - 1)}">
+                                <a class="page-link" th:href="@{/admin/products/(page=${i},sort=${sort}, size=${10}, name=${name} )}" th:text="${'Trang' + (i + 1)}">Page 1</a>
+                            </li>
+                            
+                        </ul>
+                    </nav>
                     <script>
                         function showConfirmModelDialog(id, name) {
                             $('#productName').text(name);

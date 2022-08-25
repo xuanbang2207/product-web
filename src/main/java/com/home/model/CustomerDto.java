@@ -3,6 +3,7 @@ package com.home.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import lombok.AllArgsConstructor;
@@ -16,12 +17,15 @@ public class CustomerDto  {
     private Long customerId;
     @NotEmpty
     private String name;
+   	@NotEmpty
+   	@Email
     private String email;
-    @NotEmpty
+   	@NotEmpty
     private String password;
     private String phone;
-    private Date registeredDate;
-    private short status;
+    private Boolean activated = true;
+    private Boolean admin = false;
 
     private Boolean isEdit = false;
+    
 }

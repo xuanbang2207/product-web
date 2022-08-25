@@ -15,10 +15,11 @@
             <div class="row">
               <div class="col-8">
                 <input type="hidden" th:field="*{isEdit}">
-                <div class="form-group" th:if="${product.isEdit}" >
+                <input type="hidden" th:field="*{productId}">
+                <div class="form-group" th:if="${isEdit}" >
                   <label for="productId">Product ID:</label>
                   <input type="text" class="form-control" th:field="*{productId}" id="productId"
-                    aria-describedby="productIdHid" placeholder="Product ID">
+                    aria-describedby="productIdHid" placeholder="Product ID" readonly>
                   <small id="productIdHid" class="form-text text-muted">Product ID is required</small>
                 </div>
                 <div class="form-group">
@@ -36,7 +37,7 @@
                 <div class="input-group form-group">
                   <span class="input-group-text">Unit Price</span>
                   <input type="number" th:field="*{unitPrice}" id="unitPrice" class="form-control" placeholder="Unit Price">
-                  <span class="input-group-text">.000 Vnd</span>
+                  <span class="input-group-text"></span>
                 </div>
                 <div class="form-group">
                   <label for="categoryId">Category</label>
@@ -47,30 +48,26 @@
                    
                   </select>
                 </div>
+                <div class="form-group">
+                  <label for="enteredDate">Create Date</label>
+                  <input type="datetime" class="form-control" th:field="*{enteredDate}" id="enteredDate" aria-describedby="quantityHid"
+                    placeholder="enteredDate">
+                  <small id="quantityHid" class="form-text text-muted">Quantity is required</small>
+                </div>
               </div>
               <div class="col-4">
-                <script>
-                  function chooseFile(fileInput){
-                    if(fileInput.files && fileInput.files[0] ){
-                      var reader = new FileReader();
-
-                      reader.onload = function(e){
-                        $('#image').attr('src', e.target.result);
-                      }
-                      reader.readAsDataURL(fileInput.files[0]);
-                    }
-                  }
-                </script>
+                
                 <div>
                   <img id="image"
-                   th:src="${product.image!= null? '/admin/products/images/' + product.image : '/images/chuot.jpg'}" src="/images/chuot.jpg"  width="100%"
+                   th:src="${'/admin/products/images/' + product.image}" width="100%"
                     class="img-fluid"
                     alt="">
                 </div>
 
                 <div class="form-group mt-4">
                   <label for="productImage">Image File</label>
-                  <input type="file" onchange="chooseFile(this)" class="form-control-file" name="imageFile" id="productImage"
+                  <input type="hidden" th:field="*{image}" >
+                  <input type="file" onchange="chooseFile(this)" class="form-control-file" th:object="${imageFile}"  name="imageFile" id="productImage"
                     placeholder="Product Image" aria-describedby="productImage">
                   <small id="productImage" class="form-text text-muted">Product is required</small>
                 </div>
@@ -79,19 +76,18 @@
                   <input type="number" th:field="*{discount}" id="discount" class="form-control" placeholder="Discount">
                   <span class="input-group-text">%</span>
                 </div>
-                <!-- <div class="form-group mt-2">
-                  <label for="status">Status</label>
-                  <select class="form-control" th:field="*{status}" id="status">
-                    <option value="0">Out of Stock</option>
-                    <option value="1">On Sale</option>
-                    <option value="2">Featured</option>
-                    <option value="3">Bestseller</option>
-                    <option value="4">Out of order</option>
-                  </select>
-                </div> -->
+                
+               
+                <div class="form-check form-check-inline">
+                  <label class="form-check-label">Available: 
+                    <input class="form-check-input"  th:field="*{available}" type="radio" name="" id="" value="true" checked> Yes
+                    <input class="form-check-input"  th:field="*{available}" type="radio" name="" id="" value="false"> No
+                  </label>
+                </div>
+                
                 <div class="form-group">
-                  <label class="" for="available">Available</label>
-                  <input type="checkbox" class="form-control"  id="available" th:field="*{available}" checked>
+                  <label for="my-input">View Count</label>
+                  <input id="my-input"  th:field="*{viewCount}" class="form-control" type="number" name="">
                 </div>
               </div>
             </div>
@@ -109,6 +105,18 @@
             <button class="btn btn-primary" th:text="${product.isEdit ? 'Update' : 'Save'}" >Save</button>
             <a th:if="${product.isEdit}" th:href="@{'/admin/products/delete/' + ${product.productId}}" class="btn btn-danger float-right">Delete</a>
           </div>
+          <script>
+            function chooseFile(fileInput){
+              if(fileInput.files && fileInput.files[0] ){
+                var reader = new FileReader();
+
+                reader.onload = function(e){
+                  $('#image').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(fileInput.files[0]);
+              }
+            }
+          </script>
       </form>
     </div>
   </section>

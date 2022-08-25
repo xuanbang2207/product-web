@@ -27,7 +27,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account login(String username, String password) {
-	Optional<Account> optExist = findById(username);
+	Optional<Account> optExist = accountRepository.findById(username);
 
 	if (optExist.isPresent() ) {
 	    optExist.get().setPassword("");

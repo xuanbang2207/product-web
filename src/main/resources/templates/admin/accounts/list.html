@@ -35,30 +35,37 @@
                     <table class="table table-striped table-inverse ">
                         <thead class="thead-inverse">
                             <tr>
+                                <th>ID</th>
                                 <th>Username</th>
-                                <th>Password</th>
+                                <th>Email</th>
+                                <th>Activated</th>
+                                <th>Role</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr th:each="account : ${accounts}">
-                                <td scope="row" th:text="${account.username}"></td>
-                                <td th:text="${account.password}"></td>
+                                <td scope="row" th:text="${account.customerId}"></td>
+                                <td th:text="${account.name}"></td>
+                                <td th:text="${account.email}"></td>
+                                <td th:text="${account.activated}"></td>
+                                <td th:text="${account.admin}"></td>
                                 <td>
-                                    <a th:href="@{'/admin/accounts/view' + ${account.username}}"
-                                        class="btn btn-outline-info"><i class="fas fa-info"></i></a>
-                                    <a th:href="@{'/admin/accounts/edit/' + ${account.username}}"
+                                    
+                                    <a th:href="@{'/admin/accounts/edit/' + ${account.customerId}}"
                                         class="btn btn-outline-warning"><i class="fas fa-edit"></i></a>
-                                    <a th:data-id="${account.username}"
+                                    <a th:href="@{'/admin/accounts/delete/' + ${account.customerId}}"
+                                        class="btn btn-outline-danger"><i class="fas fa-recycle"></i></a>
+                                    <!-- <a th:data-id="${account.username}"
                                     th:data-name="${account.username}"
                                     onclick="showConfirmModelDialog(this.getAttribute('data-id'), this.getAttribute('data-name'))"  
-                                        class="btn btn-outline-danger"><i class="fas fa-trash"></i></a>
+                                        class="btn btn-outline-danger"><i class="fas fa-trash"></i></a> -->
                                 </td>
                             </tr>
 
                         </tbody>
                     </table>
-                    <script>
+                    <!-- <script>
                         function showConfirmModelDialog(id, name) {
                             $('#productName').text(name);
                             $('#yesOption').attr('href', '/admin/accounts/delete/' +  id);
@@ -66,7 +73,7 @@
                         }
                     </script> 
 
-                        <!-- Modal -->
+                      
                         <div class="modal fade" id="confirmationId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
@@ -88,7 +95,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                 </div>
 
             </div>

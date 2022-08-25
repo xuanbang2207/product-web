@@ -22,4 +22,5 @@ public class Account implements Serializable {
     private String username;
     @Column(length = 60, nullable = false)
     private String password;
+    
 }

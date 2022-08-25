@@ -9,13 +9,15 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdminLoginDto {
+public class FormChange {
     @NotEmpty
-
-    private String username;
+    private String name;
     @NotEmpty
-
     private String password;
-
-    private Boolean rememberMe = false;
+    @NotEmpty
+    private String password1;
+    @NotEmpty
+    private String password2;
+    
+    private Long id;
 }

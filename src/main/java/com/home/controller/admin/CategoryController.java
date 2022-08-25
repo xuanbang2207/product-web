@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -111,15 +112,19 @@ public class CategoryController {
 	model.addAttribute("categories", list);
 	return "admin/categories/search";
     }
-
-    @GetMapping("page")
-    public String page(ModelMap model, @RequestParam("page") Optional<Integer> page) {
-	Pageable pageable = PageRequest.of(page.orElse(0), 7);
-
-	Page<Category> pages = categoryService.findAll(pageable);
-
-	model.addAttribute("pages", pages);
-
-	return "admin/categories/page";
-    }
+//
+//    @GetMapping("pagniate")
+//    public String page(ModelMap model,
+//    		@RequestParam() 
+//    		@RequestParam(defaultValue = "0") Integer PageNo,
+//    		@RequestParam(defaultValue = "10") Integer pageSize,
+//    		@RequestParam(defaultValue = "name") String sort) {
+//	Pageable pageable = PageRequest.of(PageNo, pageSize,Sort.by(sort));
+//
+//	Page<Category> pages = categoryService.findAll(pageable);
+//
+//	model.addAttribute("pages", pages);
+//
+//	return "admin/categories/page";
+//    }
 }

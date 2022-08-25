@@ -25,22 +25,22 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "customers")
 public class Customer implements Serializable {
-    @Id
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;
-    @Column(columnDefinition = "nvarchar(50) not null")
+    @Column(length =  30)
     private String name;
-    @Column(columnDefinition = "nvarchar(100) not null")
+    @Column(length = 60, nullable = false)
     private String email;
-    @Column(length = 20, nullable = false)
+    @Column(length = 60, nullable = false)
     private String password;
     @Column(length = 20)
     private String phone;
-    @Column(length = 20)
-    private String photo;
+    @Column(nullable = false)
+    private Boolean activated;
     
     @Column(nullable = false)
-    private Boolean admin;
+    private Boolean admin = false;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private Set<Order> orders;

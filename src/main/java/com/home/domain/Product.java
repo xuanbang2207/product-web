@@ -54,14 +54,12 @@ public class Product implements Serializable {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "MM/dd/yyyy")
     private Date enteredDate;
-    
-    @Column(nullable = false)
-    private short status;
+     
     
     @Column(nullable = false)
     private Boolean available;
     
-    @Column()
+    @Column(nullable = true)
     private Integer viewCount;
     
 

@@ -1,5 +1,6 @@
 package com.home.service.impl;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.FluentQuery.FetchableFluentQuery;
 import org.springframework.stereotype.Service;
 
+import com.home.domain.Category;
 import com.home.domain.Product;
 import com.home.repository.CategoryRepository;
 import com.home.repository.ProductRepository;
@@ -28,8 +30,38 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public List<Product> findByNameContaining(String name) {
+		return productRepository.findByNameContaining(name);
+	}
+
+	@Override
+	public List<Product> findByCategoryIdLike(Long categoryId) {
+		return productRepository.findByCategoryIdLike(categoryId);
+	}
+
+	@Override
+	public List<Product> findByNameIn(Collection<String> name) {
+		return productRepository.findByNameIn(name);
+	}
+
+	@Override
+	public Page<Product> findByNameContaining(String name, Pageable pageable) {
+		return productRepository.findByNameContaining(name, pageable);
+	}
+
+	@Override
+	public Page<Product> findByCategoryCategoryId(Long categoryId, Pageable pageable) {
+		return productRepository.findByCategoryCategoryId(categoryId, pageable);
+	}
+
+	@Override
 	public <S extends Product> S save(S entity) {
 		return productRepository.save(entity);
+	}
+
+	@Override
+	public <S extends Product> Optional<S> findOne(Example<S> example) {
+		return productRepository.findOne(example);
 	}
 
 	@Override
@@ -63,8 +95,53 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public void flush() {
+		productRepository.flush();
+	}
+
+	@Override
+	public boolean existsById(Long id) {
+		return productRepository.existsById(id);
+	}
+
+	@Override
+	public <S extends Product> S saveAndFlush(S entity) {
+		return productRepository.saveAndFlush(entity);
+	}
+
+	@Override
+	public <S extends Product> List<S> saveAllAndFlush(Iterable<S> entities) {
+		return productRepository.saveAllAndFlush(entities);
+	}
+
+	@Override
 	public <S extends Product> Page<S> findAll(Example<S> example, Pageable pageable) {
 		return productRepository.findAll(example, pageable);
+	}
+
+	@Override
+	public void deleteInBatch(Iterable<Product> entities) {
+		productRepository.deleteInBatch(entities);
+	}
+
+	@Override
+	public <S extends Product> long count(Example<S> example) {
+		return productRepository.count(example);
+	}
+
+	@Override
+	public void deleteAllInBatch(Iterable<Product> entities) {
+		productRepository.deleteAllInBatch(entities);
+	}
+
+	@Override
+	public long count() {
+		return productRepository.count();
+	}
+
+	@Override
+	public <S extends Product> boolean exists(Example<S> example) {
+		return productRepository.exists(example);
 	}
 
 	@Override
@@ -73,13 +150,53 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
+	public void deleteAllByIdInBatch(Iterable<Long> ids) {
+		productRepository.deleteAllByIdInBatch(ids);
+	}
+
+	@Override
 	public void delete(Product entity) {
 		productRepository.delete(entity);
 	}
 
 	@Override
+	public <S extends Product, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction) {
+		return productRepository.findBy(example, queryFunction);
+	}
+
+	@Override
+	public void deleteAllById(Iterable<? extends Long> ids) {
+		productRepository.deleteAllById(ids);
+	}
+
+	@Override
+	public void deleteAllInBatch() {
+		productRepository.deleteAllInBatch();
+	}
+
+	@Override
+	public Product getOne(Long id) {
+		return productRepository.getOne(id);
+	}
+
+	@Override
+	public void deleteAll(Iterable<? extends Product> entities) {
+		productRepository.deleteAll(entities);
+	}
+
+	@Override
 	public void deleteAll() {
 		productRepository.deleteAll();
+	}
+
+	@Override
+	public Product getById(Long id) {
+		return productRepository.getById(id);
+	}
+
+	@Override
+	public Product getReferenceById(Long id) {
+		return productRepository.getReferenceById(id);
 	}
 
 	@Override
@@ -93,24 +210,12 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> findBycategoryId(Long categoryId) {
-		// TODO Auto-generated method stub
-		return productRepository.findByCategoryIdLike(categoryId);
+	public List<Product> findByCategoryCategoryId(Long categoryId) {
+		return productRepository.findByCategoryCategoryId(categoryId);
 	}
 
-	@Override
-	public List<Product> findByCategoryId(Long categoryId) {
-		// TODO Auto-generated method stub
-		return productRepository.findByCategoryIdLike(categoryId);
-	}
-
-	@Override
-	public List<Product> findByNameContaining(String name) {
-		// TODO Auto-generated method stub
-		return productRepository.findByNameContaining(name);
-	}
-
-    
 	
-    
+	 
+	
+
 }

@@ -16,6 +16,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -64,7 +65,10 @@ public class ProductController {
     @GetMapping("add")
     public String add(Model model) {
 	ProductDto dto = new ProductDto();
-	dto.setIsEdit(false);
+//	dto.setIsEdit(false);
+//	dto.setViewCount(0);
+//	dto.setEnteredDate(new Date());
+//	dto.setAvailable(true);
 
 	model.addAttribute("product", dto);
 
@@ -83,9 +87,11 @@ public class ProductController {
 	    BeanUtils.copyProperties(entity, dto);
 
 	    dto.setCategoryId(entity.getCategory().getCategoryId());
+	 dto.setImage(entity.getImage());
 	    dto.setIsEdit(true);
+	    
 	    model.addAttribute("product", dto);
-
+	    
 	    return new ModelAndView("admin/products/addOrEdit");
 	}
 	
@@ -147,22 +153,23 @@ public class ProductController {
 	    storageService.store(dto.getImageFile(), entity.getImage());
 	}
 
+    
 	productService.save(entity);
 
 	model.addAttribute("message", "Product is saved!");
 
 	return new ModelAndView("redirect:/admin/products", model);
     }
-
-    @GetMapping("")
-    public String list(Model model) {
-	List<Product> list = productService.findAll();
-
-	model.addAttribute("products", list);
-//	model.addAttribute("message", "Done!!!!");
-
-	return "admin/products/list";
-    }
+//
+//    @GetMapping("")
+//    public String list(Model model) {
+//	List<Product> list = productService.findAll();
+//
+//	model.addAttribute("products", list);
+////	model.addAttribute("message", "Done!!!!");
+//
+//	return "admin/products/list";
+//    }
 
 //    @GetMapping("search")
 //    public String search(ModelMap model, @RequestParam(name = "name", required = false) String name) {
@@ -178,15 +185,22 @@ public class ProductController {
 //	return "admin/products/search";
 //    }
 
-    @GetMapping("page")
-    public String page(ModelMap model, @RequestParam("page") Optional<Integer> page) {
-	Pageable pageable = PageRequest.of(page.orElse(0), 7);
+    @GetMapping("")
+    public String page(ModelMap model,
+    		@RequestParam(defaultValue = "") String name,
+    		@RequestParam(defaultValue = "0") Integer page,
+    		@RequestParam(defaultValue = "10") Integer size,
+    		@RequestParam(defaultValue = "name") String sort) {
+	Pageable pageable = PageRequest.of(page, size,Sort.by(sort));
 
-	Page<Category> pages = categoryService.findAll(pageable);
-
+	Page<Product> pages = productService.findByNameContaining(name, pageable);
+	
+	model.addAttribute("name", name);
+	model.addAttribute("sort", sort);
+	
 	model.addAttribute("pages", pages);
 
-	return "admin/products/page";
+	return "admin/products/list";
     }
 
 

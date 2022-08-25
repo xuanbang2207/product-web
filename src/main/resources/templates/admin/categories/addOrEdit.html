@@ -17,6 +17,9 @@ layout:decorate="~{admin/dashboardLayout.html}">
             <h2 th:text="${category.isEdit ? 'Edit Category' : 'Add New Category'}">Add New Category</h2>
           </div>
           <div class="card-body">
+            <div th:if="${message != null}" class="alert alert-primary" role="alert">
+              <i th:text="${message}">message</i>
+            </div>
             <div class="form-group">
               <label for="categoryId">Category ID:</label>
               <input type="hidden" th:field="*{isEdit}" id="">

@@ -14,54 +14,78 @@ import com.home.domain.Customer;
 
 public interface CustomerService {
 
-    <S extends Customer> List<S> findAll(Example<S> example, Sort sort);
+	<S extends Customer> List<S> findAll(Example<S> example, Sort sort);
 
-    <S extends Customer> List<S> findAll(Example<S> example);
+	<S extends Customer> List<S> findAll(Example<S> example);
 
-    Customer getReferenceById(Long id);
+	Customer getReferenceById(Long id);
 
-    Customer getById(Long id);
+	Customer getById(Long id);
 
-    void deleteAll();
+	void deleteAll();
 
-    void deleteAll(Iterable<? extends Customer> entities);
+	void deleteAll(Iterable<? extends Customer> entities);
 
-    Customer getOne(Long id);
+	Customer getOne(Long id);
 
-    void deleteAllInBatch();
+	void deleteAllInBatch();
 
-    void deleteAllById(Iterable<? extends Long> ids);
+	void deleteAllById(Iterable<? extends Long> ids);
 
-    <S extends Customer, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction);
+	<S extends Customer, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction);
 
-    void delete(Customer entity);
+	void delete(Customer entity);
 
-    void deleteAllByIdInBatch(Iterable<Long> ids);
+	void deleteAllByIdInBatch(Iterable<Long> ids);
 
-    void deleteById(Long id);
+	void deleteById(Long id);
 
-    void deleteAllInBatch(Iterable<Customer> entities);
+	<S extends Customer> boolean exists(Example<S> example);
 
-    <S extends Customer> Page<S> findAll(Example<S> example, Pageable pageable);
+	long count();
 
-    <S extends Customer> List<S> saveAllAndFlush(Iterable<S> entities);
+	void deleteAllInBatch(Iterable<Customer> entities);
 
-    <S extends Customer> S saveAndFlush(S entity);
+	<S extends Customer> long count(Example<S> example);
 
-    <S extends Customer> List<S> saveAll(Iterable<S> entities);
+	void deleteInBatch(Iterable<Customer> entities);
 
-    Optional<Customer> findById(Long id);
+	<S extends Customer> Page<S> findAll(Example<S> example, Pageable pageable);
 
-    List<Customer> findAllById(Iterable<Long> ids);
+	<S extends Customer> List<S> saveAllAndFlush(Iterable<S> entities);
 
-    List<Customer> findAll(Sort sort);
+	<S extends Customer> S saveAndFlush(S entity);
 
-    Page<Customer> findAll(Pageable pageable);
+	boolean existsById(Long id);
 
-    List<Customer> findAll();
+	void flush();
 
-    <S extends Customer> S save(S entity);
+	<S extends Customer> List<S> saveAll(Iterable<S> entities);
 
-    List<Customer> findByNameContaining(String name);
+	Optional<Customer> findById(Long id);
 
+	List<Customer> findAllById(Iterable<Long> ids);
+
+	List<Customer> findAll(Sort sort);
+
+	Page<Customer> findAll(Pageable pageable);
+
+	List<Customer> findAll();
+
+	<S extends Customer> Optional<S> findOne(Example<S> example);
+
+	<S extends Customer> S save(S entity);
+
+	Customer findByNameAndPassword(String name, String password);
+
+	List<Customer> findByNameContaining(String name);
+
+	List<Customer> findByActivated(Boolean boolean2);
+
+	List<Customer> findByAdmin(Boolean boolean1);
+
+	
+	
+	
+    
 }

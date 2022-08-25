@@ -11,7 +11,7 @@
     <div class="card mt-2">
       <div class="card-header">Tìm kiếm</div>
       <div class="card-body">
-        <form action="" th:action="@{/site/customers/search}">
+        <form action="" th:action="@{/}">
           <input type="text" class="form-control" placeholder="Tìm kiếm" name="name">
         </form>
       </div>
@@ -21,7 +21,7 @@
       <div class="card-header"><i class="fas fa-list"></i> DANH MỤC</div>
 
       <ul class="list-group" th:each="cate : ${categories}">
-        <a class="list-group-item" th:href="@{'/site/customers/by-category/' + ${cate.categoryId}}"
+        <a class="list-group-item" th:href="@{'/by-category/' + ${cate.categoryId}}"
           th:text="${cate.name}">category</a>
 
       </ul>
@@ -34,11 +34,10 @@
          HÀNG ĐẶC BIỆT
         </div>
         <ul class="list-group">
-          <a class="list-group-item " th:href="@{/site/customers}"> Xem nhiều</a>
-          <a class="list-group-item " th:href="@{/site/customers}"> Xem nhiều</a>
-          <a class="list-group-item " th:href="@{/site/customers}"> Xem nhiều</a>
-          <a class="list-group-item " th:href="@{/site/customers}"> Xem nhiều</a>
-          <a class="list-group-item " th:href="@{/site/customers}"> Xem nhiều</a>
+          <a class="list-group-item " th:href="@{/list-by-enteredDate}"> Hàng mới</a>
+          <a class="list-group-item " th:href="@{/list-by-viewCount}"> Xem nhiều</a>
+          <a class="list-group-item " th:href="@{/list-by-}"> Bán chạy</a>
+          <a class="list-group-item " th:href="@{/list-by-discount}"> Giảm giá</a>
          
         </ul>
       </div>

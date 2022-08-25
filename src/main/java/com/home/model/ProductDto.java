@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.AllArgsConstructor;
@@ -14,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDto  {
+public class ProductDto implements Serializable {
     private Long productId;
  
     private String name;
@@ -26,17 +27,19 @@ public class ProductDto  {
 
     private MultipartFile imageFile;
     
-    private Boolean available;
-    private Integer viewCount;
+    private Boolean available = true;
+    private Integer viewCount = 0;
     
     private String description;
     private double discount;
-    private Date enteredDate;
-    private short status;
+    
+    @DateTimeFormat(pattern = "MM/dd/yyyy")
+    private Date enteredDate = new Date();
+    
     private Long categoryId;
-    private Boolean isEdit;
+    private Boolean isEdit = false;
 	private String categoryName;
 
-	
+
 
 }

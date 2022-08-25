@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.codehaus.groovy.util.StringUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,112 +17,112 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.home.domain.Account;
-import com.home.model.AccountDto;
-import com.home.service.AccountService;
+import com.home.domain.Customer;
+import com.home.model.CustomerDto;
+import com.home.service.CustomerService;
+import com.home.model.CustomerDto;
+
+
 
 @Controller
 @RequestMapping("admin/accounts")
 public class AccountController {
 
     @Autowired
-    AccountService accountService;
-
+  CustomerService customerService;
     @GetMapping("add")
     public String add(Model model) {
-	model.addAttribute("account", new AccountDto());
+	model.addAttribute("account", new CustomerDto());
 	return "admin/accounts/addOrEdit";
     }
 
     @PostMapping("saveOrUpdate")
-    public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("account") AccountDto dto,
+    public String saveOrUpdate(ModelMap model, @Valid @ModelAttribute("account") CustomerDto dto,
 	    BindingResult result) {
 
 	if (result.hasErrors()) {
-	    return new ModelAndView("admin/accounts/addOrEdit");
+	    return "admin/accounts/addOrEdit";
 	}
+	
 
-
-
-	Account entity = new Account();
+	Customer entity = new Customer();
+	
 	BeanUtils.copyProperties(dto, entity);
-	accountService.save(entity);
-
-	model.addAttribute("message", "Account is saved!");
-
-	return new ModelAndView("redirect:/admin/accounts", model);
+	System.out.println(dto.getIsEdit());
+	
+	if (dto.getIsEdit() == true) {
+		
+		model.addAttribute("message", "Đã cập nhật người dùng");
+	}else {
+		model.addAttribute("message", "Đã lưu mới người dùng");
+	}
+	customerService.save(entity);
+	 return "admin/accounts/addOrEdit";
     }
+    
+    
 
 
-    private Optional<Account> findById(String username) {
-	// TODO Auto-generated method stub
-	return null;
-    }
+    @GetMapping("edit/{id}")
+    public String eidt(@PathVariable("id") Long id, ModelMap model) {
 
-    @GetMapping("edit/{username}")
-    public ModelAndView eidt(@PathVariable("username") String username, Model model) {
-
-	Optional<Account> opt = accountService.findById(username);
-	AccountDto dto = new AccountDto();
+	Optional<Customer> opt = customerService.findById(id);
+	CustomerDto dto = new CustomerDto();
 
 	if (opt.isPresent()) {
-	    Account entity = opt.get();
-
+	    Customer entity = opt.get();
 	    BeanUtils.copyProperties(entity, dto);
 	    dto.setIsEdit(true);
-	    dto.setPassword("");
+//	    dto.setPassword("");
 	    model.addAttribute("account", dto);
-	    return new ModelAndView("admin/accounts/addOrEdit");
+	    model.addAttribute("messgae", "Cập nhật người dùng thành công");
 	}
 
-	model.addAttribute("messgae", "Account is not existed");
-	return new ModelAndView("redidect:/admin/accounts");
+	model.addAttribute("messgae", "Người dùng không tồn tại");
+	return "/admin/accounts/addOrEdit";
 
     }
 
-    @GetMapping("delete/{username}")
-    public ModelAndView delete(ModelMap model, @PathVariable("username") String username) {
-
-	accountService.deleteById(username);
-
-	model.addAttribute("message", "Account is deleted!");
-
-	return new ModelAndView("forward:/admin/accounts", model);
+    @GetMapping("delete/{id}")
+    public ModelAndView delete(ModelMap model, @PathVariable("id") Long id) {
+    	Optional<Customer> opt = customerService.findById(id);
+    	
+    	if (opt.isPresent()) {
+    	    customerService.deleteById(id);
+    	    model.addAttribute("message", "Đã xóa thành công người dùng");
     }
+    	model.addAttribute("message", "Người dùng tìm kiếm không tồn tại");
+    	return new ModelAndView("forward:/admin/accounts", model);
+    }    	
 
     @GetMapping("")
     public String list(Model model) {
-	List<Account> list = accountService.findAll();
+	List<Customer> list = customerService.findByAdmin(true);
+
+	model.addAttribute("accounts", list);
+
+	return "admin/accounts/list";
+    }
+    @GetMapping("site")
+    public String listSite(Model model) {
+	List<Customer> list = customerService.findByAdmin(false);
 
 	model.addAttribute("accounts", list);
 
 	return "admin/accounts/list";
     }
 
-//    @GetMapping("search")
-//    public String search(ModelMap model, @RequestParam(name = "name", required = false) String username) {
-//	Optional<Account> list = null;
-//	if (StringUtils.hasText(username)) {
-//	    list = accountService.findAllById(username);
-//
-//	} else {
-//	    list = accountService.findAllById(username);
-//	}
-//
-//	model.addAttribute("accounts", list);
-//	return "admin/accounts/search";
-//    }
-//
-//    @GetMapping("page")
-//    public String page(ModelMap model, @RequestParam("page") Optional<Integer> page) {
-//	Pageable pageable = PageRequest.of(page.orElse(0), 7);
-//
-//	Page<Category> pages = categoryService.findAll(pageable);
-//
-//	model.addAttribute("pages", pages);
-//
-//	return "admin/accounts/page";
-//    }
+    @GetMapping("search")
+    public String search(ModelMap model, @RequestParam(name = "name",defaultValue = "") String name) {
+	
+	List<Customer> list = customerService.findByNameContaining(name);
+
+	model.addAttribute("accounts", list);
+	return "admin/accounts/list";
+    }
+
+   
 }

@@ -12,12 +12,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountDto {
+    
     @NotEmpty
-    @Length(min = 6)
-    private String username;
+    private String name;
+    
     @NotEmpty
-    @Length(min = 6)
     private String password;
 
+    private Boolean rememberMe;
     private Boolean isEdit = false;
 }

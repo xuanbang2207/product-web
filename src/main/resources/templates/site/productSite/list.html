@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{site/dashboardLayoutHome.html}">
+
+<head>
+</head>
+
+<body>
+
+    <div class="row" layout:fragment="content">
+        <div class="card col-3 p-0 m-4 row" th:each="product : ${pages.content}">
+            <div class="card-body p-0">
+
+                <a th:href="@{'/detail/' +  ${product.productId} }">
+                    <img id="image"
+                        th:src="${product.image!= null? '/admin/products/images/' + product.image : '/images/chuot.jpg'}"
+                        width="100%" class="img-fluid" alt="" height="150">
+                </a>
+
+            </div>
+            <div class="card-footer">
+
+                <p class="mb-0 " th:text="${product.name}"></p>
+                <p class="mb-0 badge badge-info" th:text="${product.unitPrice}"></p>
+                <div class="row float-right" th:data-id="${product.productId}">
+                    <a class="btn btn-danger" th:onclick="'alert(\'Đã thêm vào giỏ hàng  sản phẩm\');'"
+                        th:href="@{'/cart/add/' + ${product.productId}}">
+                        <i class="fas fa-cart-plus"></i></a>
+
+                    <a class="btn btn-primary" th:onclick="'alert(\'Đã đánh dấu là yêu thích \');'"
+                        th:href="@{'/add-to-favo/' + ${product.name}}" id="btn-star"><i
+                            class="fas fa-star"></i></a>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row text-center mb-auto">
+            <nav aria-label="Page navigation" >
+                <ul class="pagination justify-content-center">
+                    <li class="page-item " aria-current="page" th:each="i : ${#numbers.sequence(0, pages.totalPages - 1)}">
+                        <a class="page-link" th:href="@{/(page=${i},sort=${sort}, size=${9}, name=${name} )}" th:text="${(i + 1)}">Page 1</a>
+                    </li>
+                    
+                </ul>
+            </nav> 
+           
+        </div>
+       
+    </div>
+
+</body>
+
+</html>
