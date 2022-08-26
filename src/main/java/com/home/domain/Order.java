@@ -29,25 +29,25 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "orders")
 public class Order implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId;
-    
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "MM/dd/yyyy")
-    private Date orderDate;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long orderId;
 
-    @Column(nullable = false)
-    private double amount;
-    @Column(nullable = false)
-    private String description;
-    @Column(nullable = false)
-    private String address;
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	private Date orderDate;
 
-    @ManyToOne
-    @JoinColumn(name = "customerId")
-    private Customer customer;
+	@Column(nullable = false)
+	private double amount;
+	@Column(nullable = false)
+	private String description;
+	@Column(nullable = false)
+	private String address;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private Set<OrderDetail> orderDetails;
+	@ManyToOne
+	@JoinColumn(name = "customerId")
+	private Customer customer;
+
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+	private Set<OrderDetail> orderDetails;
 }

@@ -11,23 +11,20 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Component
 public class AuthorizeInterceptor implements HandlerInterceptor {
 
-    @Autowired
-    private HttpSession session;
+	@Autowired
+	private HttpSession session;
 
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-	    throws Exception {
-	if (session.getAttribute("user") == null) {
-		
-		session.setAttribute("back-uri", request.getRequestURI());
-		response.sendRedirect("/account/login");
-		return false;
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		if (session.getAttribute("user") == null) {
+
+			session.setAttribute("back-uri", request.getRequestURI());
+			response.sendRedirect("/account/login");
+			return false;
+		}
+		return true;
+
+
 	}
-	    return true;
-
-//	session.setAttribute("redirect-uri", request.getRequestURI());
-//	response.sendRedirect("/alogin");
-
-//	return false;
-    }
 }

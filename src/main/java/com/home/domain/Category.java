@@ -22,13 +22,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "Categories")
 public class Category implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long categoryId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long categoryId;
 
-    @Column(name = "category_name", length = 100, columnDefinition = "nvarchar(100) not null")
-    private String name;
+	@Column(name = "category_name", length = 100, columnDefinition = "nvarchar(100) not null")
+	private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private Set<Product> products;
+	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+	private Set<Product> products;
 }

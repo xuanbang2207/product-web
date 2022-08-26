@@ -13,19 +13,19 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerDto  {
-    private Long customerId;
-    @NotEmpty
-    private String name;
-   	@NotEmpty
-   	@Email
-    private String email;
-   	@NotEmpty
-    private String password;
-    private String phone;
-    private Boolean activated = true;
-    private Boolean admin = false;
+public class CustomerDto {
+	private Long customerId;
+	@NotEmpty
+	private String name;
+	@NotEmpty
+	@Email
+	private String email;
+	@NotEmpty
+	private String password;
+	private String phone;
+	private Boolean activated = true;
+	private Boolean admin = false;
 
-    private Boolean isEdit = false;
-    
+	private Boolean isEdit = false;
+
 }

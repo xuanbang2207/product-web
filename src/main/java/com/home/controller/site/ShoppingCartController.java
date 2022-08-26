@@ -25,53 +25,54 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("cart")
 public class ShoppingCartController {
-	
+
 	@Autowired
 	ShoppingCartService cartService;
 	@Autowired
 	ProductService productService;
 	@Autowired
 	HttpSession session;
+
 	@GetMapping
 	public String viewCart(Model model) {
 		Collection<CartItem> items = cartService.getAllCartItem();
 		double amonut = cartService.getAmount();
 		model.addAttribute("amount", amonut);
 		model.addAttribute("items", items);
-		
-		//kiem tra xem co dang login ko
+
+		// kiem tra xem co dang login ko
 		Customer user = (Customer) session.getAttribute("user");
 		if (user == null) {
 			model.addAttribute("logout", true);
-		}else {
+		} else {
 			model.addAttribute("login", true);
 		}
 		return "site/cart/viewCart";
 	}
-	
+
 	@GetMapping("add/{id}")
 	public String add(@PathVariable Long id, Model model) {
 		CartItem item = new CartItem();
 		Optional<Product> opt = productService.findById(id);
 		if (opt != null) {
-		Product	entity = opt.get();
-		
-		BeanUtils.copyProperties(entity, item);
-		item.setQuantity(1);
-		cartService.add(item);
-			
+			Product entity = opt.get();
+
+			BeanUtils.copyProperties(entity, item);
+			item.setQuantity(1);
+			cartService.add(item);
+
 		}
-		
+
 		return "redirect:/";
 	}
-	
+
 	@GetMapping("clear")
 	public String clear() {
 		cartService.clear();
-		
+
 		return "redirect:/cart";
 	}
-	
+
 	@GetMapping("delete/{id}")
 	public String remove(@PathVariable("id") Long id, Model model) {
 		cartService.remove(id);

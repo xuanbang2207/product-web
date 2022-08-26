@@ -199,6 +199,15 @@ public class OrderServiceImpl implements OrderService{
 		return orderRepository.findByCustomerCustomerId(customerId, sort);
 	}
 
+	public List<Order> findByCustomerNameContaining(String name) {
+		return orderRepository.findByCustomerNameContaining(name);
+	}
+
+	public List<Order> findByCustomerName(String name) {
+		return orderRepository.findByCustomerName(name);
+	}
+
 	
+
 	
 }

@@ -12,13 +12,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AccountDto {
-    
-    @NotEmpty
-    private String name;
-    
-    @NotEmpty
-    private String password;
 
-    private Boolean rememberMe;
-    private Boolean isEdit = false;
+	@NotEmpty
+	private String name;
+
+	@NotEmpty
+	private String password;
+
+	private Boolean rememberMe;
+	private Boolean isEdit = false;
 }

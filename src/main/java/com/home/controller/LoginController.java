@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("accountAdmin")
-public class AdminLoginController {
+@RequestMapping("account")
+public class LoginController {
 
 	@Autowired
 	HttpSession session;
@@ -35,8 +35,8 @@ public class AdminLoginController {
 	public String login(Model model) {
 		AccountDto dto = new AccountDto();
 
-		Cookie ckname = cookieService.read("adname");
-		Cookie ckpassword = cookieService.read("adpassword");
+		Cookie ckname = cookieService.read("name");
+		Cookie ckpassword = cookieService.read("password");
 		if (ckname != null) {
 			String name = ckname.getValue();
 			String password = ckpassword.getValue();
@@ -56,14 +56,14 @@ public class AdminLoginController {
 			model.addAttribute("login", true);
 		}
 
-		return "admin/accounts/login";
+		return "site/account/login";
 	}
 
 	@PostMapping("login")
 	public ModelAndView login(ModelMap model, @Valid @ModelAttribute("account") AccountDto dto, BindingResult result) {
 
 		if (result.hasErrors()) {
-			return new ModelAndView("/admin/accounts/login");
+			return new ModelAndView("/site/account/login");
 		}
 		Customer opt = customerService.findByNameAndPassword(dto.getName(), dto.getPassword());
 
@@ -73,20 +73,18 @@ public class AdminLoginController {
 		} else if (opt.getActivated() == false) {
 			model.addAttribute("message", "Tài khoản chưa được kích hoạt");
 
-		} else if (opt.getAdmin() == false) {
-			model.addAttribute("message", "Tài khoản không phải là admin");
 		} else {
 
 			model.addAttribute("message", "Đăng nhập thành công");
-			session.setAttribute("admin", opt);
+			session.setAttribute("user", opt);
 
 			// Ghi nhớ tài khoản bằng cookie
 			if (dto.getRememberMe() == true) {
-				cookieService.create("adname", opt.getName(), 10);
-				cookieService.create("adpassword", opt.getPassword(), 10);
+				cookieService.create("name", opt.getName(), 10);
+				cookieService.create("password", opt.getPassword(), 10);
 			} else {
-				cookieService.delete("adname");
-				cookieService.delete("adpassword");
+				cookieService.delete("name");
+				cookieService.delete("password");
 			}
 
 			// quay lại trang dc bảo vế nếu có
@@ -98,13 +96,13 @@ public class AdminLoginController {
 
 		}
 
-		return new ModelAndView("/admin/accounts/login", model);
+		return new ModelAndView("/site/account/login", model);
 	}
 
 	@RequestMapping("logout")
 	public String logout(Model model) {
-		session.removeAttribute("admin");
-		System.out.println("Admin logout thanh cong");
-		return "redirect:/accountAdmin/login";
+		session.removeAttribute("user");
+		System.out.println("user logout thanh cong");
+		return "redirect:/";
 	}
 }

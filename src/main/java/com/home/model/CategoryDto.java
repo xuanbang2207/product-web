@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryDto  {
+public class CategoryDto {
 
-    private Long categoryId;
-    @NotEmpty
-    @Length(min = 5)
-    private String name;
+	private Long categoryId;
+	@NotEmpty
+	@Length(min = 5)
+	private String name;
 
-    private Boolean isEdit = false;
+	private Boolean isEdit = false;
 }

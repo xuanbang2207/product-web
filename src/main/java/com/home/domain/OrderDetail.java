@@ -24,22 +24,22 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "orderdetails")
 public class OrderDetail implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderDetailId;
-    @Column(nullable = false)
-    private int quantity;
-    
-    @Column(nullable = false)
-    private double unitPrice;
-    
-    @Column(nullable = false)
-    private double discount;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long orderDetailId;
+	@Column(nullable = false)
+	private int quantity;
 
-    @ManyToOne
-    @JoinColumn(name = "productId")
-    private Product product;
-    @ManyToOne
-    @JoinColumn(name = "orderId")
-    private Order order;
+	@Column(nullable = false)
+	private double unitPrice;
+
+	@Column(nullable = false)
+	private double discount;
+
+	@ManyToOne
+	@JoinColumn(name = "productId")
+	private Product product;
+	@ManyToOne
+	@JoinColumn(name = "orderId")
+	private Order order;
 }

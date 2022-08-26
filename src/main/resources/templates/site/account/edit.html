@@ -19,16 +19,16 @@
                         <i th:text="${message}">message</i>
                     </div>
                     <div class="card-body">
-
-                        <div class="form-group" th:if="${customer.isEdit}" >
-                            
-                            <!-- <label for="customerId">Customer ID:</label>
+                        <input type="hidden" th:field="*{customerId}">
+                        <input type="hidden" th:field="*{isEdit}">
+                        <div class="form-group" th:if="${customer.isEdit}" >                          
+                            <label for="customerId">Customer ID:</label>
                             <input type="text" th:field="*{customerId}" id="customerId" class="form-control"
                                 placeholder="Customer ID" aria-describedby="customerHid" readonly>
-                            <small id="customerHid" class="text-muted">Customer id is required</small> -->
+                            <small id="customerHid" class="text-muted">Customer id is required</small>
                         </div>
                         <div class="form-group">
-                            <input type="hidden" th:field="*{isEdit}">
+                            
                             <label for="name">Name</label>
                             <input type="text" th:field="*{name}" id="name" class="form-control" placeholder="Name"
                                 aria-describedby="nameHid">
@@ -41,13 +41,6 @@
                             <!-- <small id="emailHid" class="text-muted">Email không để trống</small> -->
                         </div>
 
-
-                        <!-- <div class="form-group">
-                            <label for="password">Password</label>
-                            <input type="password" th:field="*{password}" id="password" class="form-control"
-                                placeholder="Password" aria-describedby="passwordHid">
-                            <small id="passwordHid" class="text-muted">Mật khẩu không để trống</small>
-                        </div> -->
                         <div class="form-group">
                             <label for="phone">Phone</label>
                             <input type="text" th:field="*{phone}" id="phone" class="form-control" placeholder="Phone"
@@ -55,8 +48,6 @@
                             <!-- <small id="phoneHid" class="text-muted">Số điện thoại không để trống</small> -->
                         </div>
                      
-
-
                     </div>
                     <div class="card-footer text-muted">
                        

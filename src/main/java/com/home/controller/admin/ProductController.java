@@ -1,7 +1,5 @@
 package com.home.controller.admin;
 
-
-
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -45,163 +43,131 @@ import com.home.service.StorageService;
 @RequestMapping("admin/products")
 public class ProductController {
 
-    @Autowired
-    CategoryService categoryService;
+	@Autowired
+	CategoryService categoryService;
 
-    @Autowired
-    ProductService productService;
+	@Autowired
+	ProductService productService;
 
-    @Autowired
-    StorageService storageService;
-    @ModelAttribute("categories")
-    public List<CategoryDto> getCategories() {
-	return categoryService.findAll().stream().map(item -> {
-	    CategoryDto dto = new CategoryDto();
-	    BeanUtils.copyProperties(item, dto);
-	    return dto;
-	}).toList();
-    }
+	@Autowired
+	StorageService storageService;
 
-    @GetMapping("add")
-    public String add(Model model) {
-	ProductDto dto = new ProductDto();
-//	dto.setIsEdit(false);
-//	dto.setViewCount(0);
-//	dto.setEnteredDate(new Date());
-//	dto.setAvailable(true);
-
-	model.addAttribute("product", dto);
-
-	return "admin/products/addOrEdit";
-    }
-
-    @GetMapping("edit/{productId}")
-    public ModelAndView edit(@PathVariable("productId") Long productId, Model model) {
-	
-	Optional<Product> opt = productService.findById(productId);
-	ProductDto dto = new ProductDto();
-	
-	if (opt.isPresent()) {
-	    Product entity = opt.get();
-	    
-	    BeanUtils.copyProperties(entity, dto);
-
-	    dto.setCategoryId(entity.getCategory().getCategoryId());
-	 dto.setImage(entity.getImage());
-	    dto.setIsEdit(true);
-	    
-	    model.addAttribute("product", dto);
-	    
-	    return new ModelAndView("admin/products/addOrEdit");
-	}
-	
-	model.addAttribute("messgae", "Product is not existed");
-	return new ModelAndView("forward:/admin/products");
-	
-    }
-
-    @GetMapping("/images/{filename:.+}")
-    @ResponseBody
-    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
-	Resource file = storageService.loadAsResource(filename);
-
-	return ResponseEntity.ok()
-		.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
-		.body(file);
-    }
-
-    @GetMapping("delete/{productId}")
-    public ModelAndView delete(ModelMap model, @PathVariable("productId") Long productId) throws IOException {
-
-	Optional<Product> opt = productService.findById(productId);
-
-	if (opt.isPresent()) {
-	    if (!StringUtils.isEmpty(opt.get().getImage())) {
-		storageService.delete(opt.get().getImage());
-	    }
-	    productService.delete(opt.get());
-
-	    model.addAttribute("message", "Product is deleted!");
-	} else {
-	    model.addAttribute("message", "Product  is not Found!");
+	@ModelAttribute("categories")
+	public List<CategoryDto> getCategories() {
+		return categoryService.findAll().stream().map(item -> {
+			CategoryDto dto = new CategoryDto();
+			BeanUtils.copyProperties(item, dto);
+			return dto;
+		}).toList();
 	}
 
-	return new ModelAndView("forward:/admin/products", model);
-    }
+	@GetMapping("add")
+	public String add(Model model) {
+		ProductDto dto = new ProductDto();
 
-    @PostMapping("saveOrUpdate")
-    public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("product") ProductDto dto,
-	    BindingResult result) {
-
-	if (result.hasErrors()) {
-	    return new ModelAndView("admin/products/addOrEdit");
+		model.addAttribute("product", dto);
+		return "admin/products/addOrEdit";
 	}
 
-	Product entity = new Product();
-	BeanUtils.copyProperties(dto, entity);
+	@GetMapping("edit/{productId}")
+	public ModelAndView edit(@PathVariable("productId") Long productId, Model model) {
 
-	Category category = new Category();
-	category.setCategoryId(dto.getCategoryId());
-	entity.setCategory(category);
-	entity.setEnteredDate(new Date());
+		Optional<Product> opt = productService.findById(productId);
+		ProductDto dto = new ProductDto();
 
-	if (!dto.getImageFile().isEmpty()) {
-	    UUID uuid = UUID.randomUUID();
-	    String uuString = uuid.toString();
+		if (opt.isPresent()) {
+			Product entity = opt.get();
 
-	    entity.setImage(storageService.getStoredFilename(dto.getImageFile(), uuString));
-	    storageService.store(dto.getImageFile(), entity.getImage());
+			BeanUtils.copyProperties(entity, dto);
+
+			dto.setCategoryId(entity.getCategory().getCategoryId());
+			dto.setImage(entity.getImage());
+			dto.setIsEdit(true);
+
+			model.addAttribute("product", dto);
+
+			return new ModelAndView("admin/products/addOrEdit");
+		}
+
+		model.addAttribute("messgae", "Product is not existed");
+		return new ModelAndView("forward:/admin/products");
+
 	}
 
-    
-	productService.save(entity);
+	@GetMapping("/images/{filename:.+}")
+	@ResponseBody
+	public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+		Resource file = storageService.loadAsResource(filename);
 
-	model.addAttribute("message", "Product is saved!");
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")
+				.body(file);
+	}
 
-	return new ModelAndView("redirect:/admin/products", model);
-    }
-//
-//    @GetMapping("")
-//    public String list(Model model) {
-//	List<Product> list = productService.findAll();
-//
-//	model.addAttribute("products", list);
-////	model.addAttribute("message", "Done!!!!");
-//
-//	return "admin/products/list";
-//    }
+	@GetMapping("delete/{productId}")
+	public ModelAndView delete(ModelMap model, @PathVariable("productId") Long productId) throws IOException {
 
-//    @GetMapping("search")
-//    public String search(ModelMap model, @RequestParam(name = "name", required = false) String name) {
-//	List<Product> list = null;
-//	if (StringUtils.hasText(name)) {
-//	    list = productService.findByNameContaining(name);
-//
-//	} else {
-//	    list = productService.findAll();
-//	}
-//
-//	model.addAttribute("products", list);
-//	return "admin/products/search";
-//    }
+		Optional<Product> opt = productService.findById(productId);
 
-    @GetMapping("")
-    public String page(ModelMap model,
-    		@RequestParam(defaultValue = "") String name,
-    		@RequestParam(defaultValue = "0") Integer page,
-    		@RequestParam(defaultValue = "10") Integer size,
-    		@RequestParam(defaultValue = "name") String sort) {
-	Pageable pageable = PageRequest.of(page, size,Sort.by(sort));
+		if (opt.isPresent()) {
+			if (!StringUtils.isEmpty(opt.get().getImage())) {
+				storageService.delete(opt.get().getImage());
+			}
+			productService.delete(opt.get());
 
-	Page<Product> pages = productService.findByNameContaining(name, pageable);
-	
-	model.addAttribute("name", name);
-	model.addAttribute("sort", sort);
-	
-	model.addAttribute("pages", pages);
+			model.addAttribute("message", "Product đã được xóa");
+		} else {
+			model.addAttribute("message", "Product không tìm thấy");
+		}
 
-	return "admin/products/list";
-    }
+		return new ModelAndView("forward:/admin/products", model);
+	}
 
+	@PostMapping("saveOrUpdate")
+	public ModelAndView saveOrUpdate(ModelMap model, @Valid @ModelAttribute("product") ProductDto dto,
+			BindingResult result) {
+
+		if (result.hasErrors()) {
+			return new ModelAndView("admin/products/addOrEdit");
+		}
+
+		Product entity = new Product();
+		BeanUtils.copyProperties(dto, entity);
+
+		Category category = new Category();
+		category.setCategoryId(dto.getCategoryId());
+		entity.setCategory(category);
+		entity.setEnteredDate(new Date());
+
+		if (!dto.getImageFile().isEmpty()) {
+			UUID uuid = UUID.randomUUID();
+			String uuString = uuid.toString();
+
+			entity.setImage(storageService.getStoredFilename(dto.getImageFile(), uuString));
+			storageService.store(dto.getImageFile(), entity.getImage());
+		}
+
+		productService.save(entity);
+
+		model.addAttribute("message", "Product is saved!");
+		return new ModelAndView("redirect:/admin/products", model);
+	}
+
+	@GetMapping("")
+	public String page(ModelMap model, @RequestParam(defaultValue = "") String name,
+			@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size,
+			@RequestParam(defaultValue = "name") String sort) {
+		Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
+
+		Page<Product> pages = productService.findByNameContaining(name, pageable);
+
+		model.addAttribute("name", name);
+		model.addAttribute("sort", sort);
+
+		model.addAttribute("list", pages.getContent());
+		model.addAttribute("TotalPages", pages.getTotalPages());
+
+		return "admin/products/list";
+	}
 
 }

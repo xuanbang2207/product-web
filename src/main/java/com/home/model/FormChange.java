@@ -10,14 +10,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FormChange {
-    @NotEmpty
-    private String name;
-    @NotEmpty
-    private String password;
-    @NotEmpty
-    private String password1;
-    @NotEmpty
-    private String password2;
-    
-    private Long id;
+	@NotEmpty
+	private String name;
+	@NotEmpty
+	private String password;
+	@NotEmpty
+	private String password1;
+	@NotEmpty
+	private String password2;
+
+	private Long id;
 }

@@ -43,7 +43,7 @@ public class OrderSiteController {
 	HttpSession session;
 	@Autowired
 	ShoppingCartService cartService;
-	
+
 	@Autowired
 	ProductService productService;
 	@Autowired
@@ -59,21 +59,21 @@ public class OrderSiteController {
 		dto.setAmount(cartService.getAmount());
 		dto.setOrderDate(new Date());
 		dto.setCustomerId(user.getCustomerId());
-		
+
 		Collection<CartItem> items = cartService.getAllCartItem();
 		double amount = cartService.getAmount();
 		if (amount <= 0) {
 			model.addAttribute("amount", true);
 		}
-		
+
 		model.addAttribute("items", items);
 		model.addAttribute("order", dto);
-		
+
 		return "site/order/checkout";
 	}
-	
+
 	@PostMapping("checkout")
-	public String viewCheck( @ModelAttribute("order") OrderDto dto, Model model) {
+	public String viewCheck(@ModelAttribute("order") OrderDto dto, Model model) {
 		Collection<CartItem> list = cartService.getAllCartItem();
 		List<OrderDetail> details = new ArrayList<>();
 		if (cartService.getAmount() <= 0) {
@@ -82,15 +82,15 @@ public class OrderSiteController {
 		}
 		Order order = new Order();
 		BeanUtils.copyProperties(dto, order);
-		
+
 		Customer customer = new Customer();
 		customer.setCustomerId(dto.getCustomerId());
 		order.setCustomer(customer);
-		
+
 		orderService.save(order);
-		
+
 		for (CartItem item : list) {
-			
+
 			Optional<Product> product = productService.findById(item.getProductId());
 			OrderDetail detail = new OrderDetail();
 			detail.setOrder(order);
@@ -99,30 +99,33 @@ public class OrderSiteController {
 			detail.setDiscount(item.getDiscount());
 			detail.setQuantity(item.getQuantity());
 			orderDetailService.save(detail);
-			
+
+			// trừ đi quatity của product
+			product.get().setQuantity(product.get().getQuantity() - item.getQuantity());
+			productService.save(product.get());
 		}
 		model.addAttribute("message", "Đặt hàng thành công");
 		cartService.clear();
 		return "site/order/checkout";
 	}
-	
-	
 
 	@GetMapping("/list")
-		public String list(Model model) {
-			Customer user = (Customer) session.getAttribute("user");
-			
-			List<Order> list = orderService.findByCustomerCustomerId(user.getCustomerId(), Sort.by(Direction.DESC, "orderDate"));
-			
-	//		List<Order> list = orderService.findByCustomerCustomerId(user.getCustomerId());
-			model.addAttribute("list", list);
-			
-			return "site/order/list";
-		}
+	public String list(Model model) {
+		Customer user = (Customer) session.getAttribute("user");
+
+		List<Order> list = orderService.findByCustomerCustomerId(user.getCustomerId(),
+				Sort.by(Direction.DESC, "orderDate"));
+
+		// List<Order> list =
+		// orderService.findByCustomerCustomerId(user.getCustomerId());
+		model.addAttribute("list", list);
+
+		return "site/order/list";
+	}
 
 	@GetMapping("/detail/{id}")
 	public String detail(Model model, @PathVariable Long id) {
-		
+
 		List<OrderDetail> entity = orderDetailService.findByOrderOrderId(id);
 //	
 //		List<OrderDetailDto> list = new ArrayList<>();
@@ -134,12 +137,12 @@ public class OrderSiteController {
 //			
 //		}).toList();
 //		model.addAttribute("details", list);
-		
+
 		Optional<Order> opt = orderService.findById(id);
-		
+
 		model.addAttribute("order", opt.get());
 		model.addAttribute("details", entity);
-		
+
 		return "site/order/detail";
 	}
 }

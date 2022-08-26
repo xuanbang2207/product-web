@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDetailDto  {
-    private Long orderDetailId;
-    private Long orderId;
-    private Long productId;
-    private int quantity;
-    private double unitPrice;
-    private String productName;
-    private double discount;
+public class OrderDetailDto {
+	private Long orderDetailId;
+	private Long orderId;
+	private Long productId;
+	private int quantity;
+	private double unitPrice;
+	private String productName;
+	private double discount;
 
 }

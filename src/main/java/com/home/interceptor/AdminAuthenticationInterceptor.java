@@ -11,20 +11,20 @@ import org.springframework.web.servlet.HandlerInterceptor;
 @Component
 public class AdminAuthenticationInterceptor implements HandlerInterceptor {
 
-    @Autowired
-    private HttpSession session;
+	@Autowired
+	private HttpSession session;
 
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-	    throws Exception {
-	if (session.getAttribute("username") != null) {
-	    return true;
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+			throws Exception {
+		if (session.getAttribute("admin") != null) {
+			return true;
+		}
+
+		session.setAttribute("back-uri", request.getRequestURI());
+		response.sendRedirect("/accountAdmin/login");
+
+		return false;
 	}
-
-	session.setAttribute("redirect-uri", request.getRequestURI());
-	response.sendRedirect("/alogin");
-
-	return false;
-    }
 
 }

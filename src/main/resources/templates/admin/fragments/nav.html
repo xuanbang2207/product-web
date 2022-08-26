@@ -6,7 +6,7 @@
    <body>
     <div th:fragment="nav">
         <nav class="navbar navbar-expand-sm navbar-light bg-light">
-            <a class="navbar-brand" href="#">ShopHome</a>
+            <a class="navbar-brand" th:href="@{/}">ShopMail</a>
             <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
                 aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
@@ -15,7 +15,7 @@
               <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 
                 <li class="nav-item">
-                  <a class="nav-link" th:href="@{/admin/accounts/site}">Manage Customer</a>
+                  <a class="nav-link" th:href="@{/admin/accounts/all}">Manage Customer</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" th:href="@{/admin/categories}">Manage Category</a>
@@ -26,10 +26,20 @@
                 <li class="nav-item">
                   <a class="nav-link" th:href="@{/admin/orders}">Manage Order</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" th:href="@{/admin/accounts}">Manage Profile</a>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" th:href="@{/}" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>
+                    Profile
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    
+                    <a class="dropdown-item" th:href="@{/admin/accounts/ad}">List Admin</a>
+                      <a class="dropdown-item" th:href="@{/admin/accounts/add}">Add Admin</a>
+                      <a class="dropdown-item"  th:href="@{/accountAdmin/logout}">Logout</a> 
+                    </div>
+                    
+                  </div>
                 </li>
-                
               </ul>
               
             </div>

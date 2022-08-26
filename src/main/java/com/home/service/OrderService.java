@@ -83,4 +83,8 @@ public interface OrderService {
 
 	List<Order> findByCustomerCustomerId(Long customerId);
 
+	List<Order> findByCustomerNameContaining(String name);
+
+	List<Order> findAll();
+
 }

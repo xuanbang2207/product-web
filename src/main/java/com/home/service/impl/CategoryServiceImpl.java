@@ -181,10 +181,17 @@ public class CategoryServiceImpl implements CategoryService{
 	return categoryRepository.findAll(example, sort);
     }
 
-    @Override
-    public <S extends Category, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction) {
-	// TODO Auto-generated method stub
-	return null;
-    }
+	@Override
+	public Page<Category> findByNameContaining(String name, Pageable pageable) {
+		return categoryRepository.findByNameContaining(name, pageable);
+	}
+
+	@Override
+	public <S extends Category, R> R findBy(Example<S> example, Function<FetchableFluentQuery<S>, R> queryFunction) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+    
 
 }
