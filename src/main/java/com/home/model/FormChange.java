@@ -1,5 +1,7 @@
 package com.home.model;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotEmpty;
 
 import lombok.AllArgsConstructor;
@@ -9,14 +11,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class FormChange {
-	@NotEmpty
+public class FormChange implements Serializable{
+
 	private String name;
-	@NotEmpty
+	@NotEmpty(message = "Chưa nhập mật khẩu cũ")
 	private String password;
-	@NotEmpty
+	@NotEmpty(message = "Chưa nhập mật khẩu mới")
 	private String password1;
-	@NotEmpty
+	@NotEmpty(message = "Chưa nhập mật khẩu xác nhận")
 	private String password2;
 
 	private Long id;

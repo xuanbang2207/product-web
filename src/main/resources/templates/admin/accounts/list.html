@@ -24,9 +24,11 @@
                                 <label for="name">Name:</label>
                                 <input type="text" class="form-control ml-2" name="name" id="name"
                                     aria-describedby="nameHid" placeholder="Name">
+                                    
                                 <small id="nameHid" class="form-text text-muted"></small>
                                 <button class="btn btn-outline-primary ml-2">Search</button>
                             </div>
+                           
                         </form>
                     </div>
                     <div class="float-right">
@@ -38,7 +40,6 @@
                                 <th>ID</th>
                                 <th>Username</th>
                                 <th>Email</th>
-                                <th>Phone</th>
                                 <th>Activated</th>
                                 <th>Role</th>
                                 <th></th>
@@ -49,9 +50,8 @@
                                 <td scope="row" th:text="${account.customerId}"></td>
                                 <td th:text="${account.name}"></td>
                                 <td th:text="${account.email}"></td>
-                                <td th:text="${account.phone}"></td>
-                                <td th:text="${account.activated}"></td>
-                                <td th:text="${account.admin}"></td>
+                                <td th:text="${account.activated ? 'Yes' : 'No'}"></td>
+                                <td th:text="${account.admin ? 'Admin' : 'User'}"></td>
                                 <td>
                                     
                                     <a th:href="@{'/admin/accounts/edit/' + ${account.customerId}}"
@@ -60,7 +60,7 @@
                                     <a th:data-id="${account.customerId}"
                                     th:data-name="${account.name}"
                                     onclick="showConfirmModelDialog(this.getAttribute('data-id'), this.getAttribute('data-name'))"  
-                                        class="btn btn-outline-danger"><i class="fas fa-trash"></i></a>
+                                        class="btn btn-outline-danger"><i class="fas fa-recycle"></i></a>
                                 </td>
                             </tr>
 

@@ -19,9 +19,10 @@
                             <tr>
                                 
                                 <th>Id</th>
-                                <th>Ngày mua</th>
-                                <th>Địa chỉ</th>
-                                <th>Tổng tiền</th>
+                                <th>Order Date</th>
+                                <th>Phone</th>
+                                <th>Address</th>
+                                <th>Total Amount</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -30,6 +31,7 @@
                                 
                                 <td th:text="${item.orderId}"></td>
                                 <td th:text="${item.orderDate}">50.3</td>
+                                <td th:text="${item.phone}"></td>
                                 <td ><span th:text="${item.address}"></span></td>
                                 <td th:text="${item.amount}"></td>
                                 <td>

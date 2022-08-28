@@ -13,10 +13,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryDto {
-
+public class CategoryDto implements Serializable{
+ 
 	private Long categoryId;
-	@NotEmpty
+	@NotEmpty(message = "Tên mặt hàng không được để trống")
 	@Length(min = 5)
 	private String name;
 

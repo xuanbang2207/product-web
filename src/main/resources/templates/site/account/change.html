@@ -23,26 +23,25 @@ layout:decorate="~{site/dashboardLayoutHome.html}">
             <div class="form-group">
               <label for="name">Name</label>
               <input type="text" th:field="*{name}" id="name" class="form-control" placeholder="Name"
-                aria-describedby="nameHid" readonly>
-              <small th:if="${#fields.hasErrors('name')}" id="nameHid" class="text-muted">Tên đăng nhập sai hoặc không được để trống</small>
-            </div>
+           readonly>
+                
             <div class="form-group">
               <label for="name">Mật khẩu cũ</label>
               <input type="password" th:field="*{password}" id="name" class="form-control" placeholder="Mật khẩu cũ"
-                aria-describedby="nameHid">
-              <small th:if="${#fields.hasErrors('password')}" id="nameHid" class="text-muted">Mật khẩu cũ nhập sai hoặc không được để trống</small>
+               >
+                <small class="form-text text-muted" th:if="${#fields.hasErrors('password')}" th:errors = *{password}></small>
             </div>
             <div class="form-group">
               <label for="name">Mật khẩu mới </label>
               <input type="password" th:field="*{password1}" id="name" class="form-control" placeholder="Mật khẩu mới"
-                aria-describedby="nameHid">
-              <small th:if="${#fields.hasErrors('password1')}" id="nameHid" class="text-muted">Mật khẩu cũ nhập sai hoặc không được để trống</small>
+               >
+                <small class="form-text text-muted" th:if="${#fields.hasErrors('password1')}" th:errors = *{password1}></small>
             </div>
             <div class="form-group">
               <label for="name">Xác nhận lại mật khẩu mới</label>
               <input type="password" th:field="*{password2}" id="name" class="form-control" placeholder="Nhập lại mật khẩu mới"
-                aria-describedby="nameHid">
-              <small th:if="${#fields.hasErrors('password2')}" id="nameHid" class="text-muted">Không để trống</small>
+              >
+              <small class="form-text text-muted" th:if="${#fields.hasErrors('password2')}" th:errors = *{password2}></small>
             </div>
           </div>
           <div class="card-footer text-muted">

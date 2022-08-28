@@ -34,7 +34,7 @@ public class Order implements Serializable {
 	private Long orderId;
 
 	@Temporal(TemporalType.DATE)
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date orderDate;
 
 	@Column(nullable = false)
@@ -43,6 +43,8 @@ public class Order implements Serializable {
 	private String description;
 	@Column(nullable = false)
 	private String address;
+	@Column(nullable = false)
+	private String phone;
 
 	@ManyToOne
 	@JoinColumn(name = "customerId")

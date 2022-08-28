@@ -85,6 +85,5 @@ public interface OrderService {
 
 	List<Order> findByCustomerNameContaining(String name);
 
-	List<Order> findAll();
-
+	
 }

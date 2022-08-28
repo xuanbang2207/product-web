@@ -26,6 +26,14 @@
                                     aria-describedby="nameHid" placeholder="Name">
                                 <small id="nameHid" class="form-text text-muted"></small>
                                 <button class="btn btn-outline-primary ml-2">Search</button>
+                                <!-- <div class="form-group ml-3">
+                                    <label for="">Role:</label>
+                                    <select class="form-control ml-2" name="admin" id="">
+                                      <option th:value="false">User</option>
+                                      <option th:value="true">Admin</option>
+                                      
+                                    </select>
+                                  </div> -->
                             </div>
                         </form>
                     </div>
@@ -38,7 +46,6 @@
                                 <th>ID</th>
                                 <th>Username</th>
                                 <th>Email</th>
-                                <th>Phone</th>
                                 <th>Activated</th>
                                 <th>Role</th>
                                 <th></th>
@@ -49,7 +56,6 @@
                                 <td scope="row" th:text="${account.customerId}"></td>
                                 <td th:text="${account.name}"></td>
                                 <td th:text="${account.email}"></td>
-                                <td th:text="${account.phone}"></td>
                                 <td th:text="${account.activated ? 'Yes' : 'No'}"></td>
                                 <td th:text="${account.admin ? 'Admin' : 'User'}"></td>
                                 <td>

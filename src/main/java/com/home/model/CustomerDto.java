@@ -13,19 +13,20 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerDto {
+public class CustomerDto implements Serializable{
 	private Long customerId;
-	@NotEmpty
+	@NotEmpty(message =  "Tên không được để trống")
 	private String name;
-	@NotEmpty
-	@Email
+	@NotEmpty(message = "email không được để trống")
+	@Email(message = "Chưa đúng định dạng email")
 	private String email;
-	@NotEmpty
+	@NotEmpty(message = "password không được để trống")
 	private String password;
-	private String phone;
+	
 	private Boolean activated = true;
 	private Boolean admin = false;
 
+	private Boolean rememberMe;
 	private Boolean isEdit = false;
 
 }

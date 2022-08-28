@@ -19,7 +19,7 @@
 					<li >Giá: <span class="badge badge-info" th:text="${detail.unitPrice}"></span>VNĐ</li>
 					<li th:text="${'Ngày nhập: ' + detail.enteredDate}"></li>
 					<!-- <li >Mặt hàng: <span th:text="${detail.categoryName"></span></li> -->
-					<li >Số lượng: <span th:text="${detail.quantity}"></span></li>
+					<li >Số lượng: <span th:text="${detail.quantity }"></span></li>
 					<li >Giảm giá: <span class="badge badge-pill badge-warning" th:text="${detail.discount}"></span>%</li>
 					<li >Lượt xem: <span th:text="${detail.viewCount}"></span></li>
 					<li th:text="${detail.available ? 'Còn hàng' : 'Hết hàng'}"></li>

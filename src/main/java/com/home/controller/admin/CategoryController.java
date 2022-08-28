@@ -89,8 +89,10 @@ public class CategoryController {
 	}
 
 	@GetMapping("")
-	public String list(ModelMap model, @RequestParam(defaultValue = "") String name,
-			@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "9") Integer size,
+	public String list(ModelMap model, 
+			@RequestParam(defaultValue = "") String name,
+			@RequestParam(defaultValue = "0") Integer page, 
+			@RequestParam(defaultValue = "9") Integer size,
 			@RequestParam(defaultValue = "name") String sort) {
 		Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
 

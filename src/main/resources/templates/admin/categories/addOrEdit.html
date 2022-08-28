@@ -24,16 +24,14 @@ layout:decorate="~{admin/dashboardLayout.html}">
               <label for="categoryId">Category ID:</label>
               <input type="hidden" th:field="*{isEdit}" id="">
               <input type="text" th:field="*{categoryId}" id="categoryId" class="form-control" placeholder="Category ID"
-                aria-describedby="categoryIdHid" readonly>
-              <small th:if="${#fields.hasErrors('categoryId')}" id="categoryIdHid" class="text-muted">Category id is
-                required</small>
+                 readonly>
+              
             </div>
             <div class="form-group">
               <label for="name">Name</label>
               <input type="text" th:field="*{name}" id="name" class="form-control" placeholder="Name"
-                aria-describedby="nameHid">
-              <small th:if="${#fields.hasErrors('name')}" id="nameHid" class="text-muted">Name is required or
-                invalid</small>
+                >
+                <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors = *{name}></small>
             </div>
           </div>
           <div class="card-footer text-muted">

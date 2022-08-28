@@ -241,8 +241,10 @@ public class ProductSiteController {
 	}
 
 	@GetMapping("")
-	public String pageHome(ModelMap model, @RequestParam(defaultValue = "") String name,
-			@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "9") Integer size,
+	public String pageHome(ModelMap model, 
+			@RequestParam(defaultValue = "") String name,
+			@RequestParam(defaultValue = "0") Integer page, 
+			@RequestParam(defaultValue = "9") Integer size,
 			@RequestParam(defaultValue = "name") String sort) {
 		Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
 
@@ -256,10 +258,8 @@ public class ProductSiteController {
 		Customer user = (Customer) session.getAttribute("user");
 		if (user == null) {
 			model.addAttribute("logout", true);
-//		System.out.println("logout");
 		} else {
 			model.addAttribute("login", true);
-//		System.out.println("login");
 		}
 
 		model.addAttribute("name", name);

@@ -202,6 +202,16 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerRepository.findByAdmin(boolean1);
 	}
 
+	@Override
+	public List<Customer> findByActivatedAndNameContaining(Boolean boolean2, String name) {
+		return customerRepository.findByActivatedAndNameContaining(boolean2, name);
+	}
+
+	@Override
+	public List<Customer> findByAdminAndNameContaining(Boolean boolean1, String name) {
+		return customerRepository.findByAdminAndNameContaining(boolean1, name);
+	}
+
 	
    
 

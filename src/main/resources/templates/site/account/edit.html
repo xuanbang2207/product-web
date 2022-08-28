@@ -25,32 +25,24 @@
                             <label for="customerId">Customer ID:</label>
                             <input type="text" th:field="*{customerId}" id="customerId" class="form-control"
                                 placeholder="Customer ID" aria-describedby="customerHid" readonly>
-                            <small id="customerHid" class="text-muted">Customer id is required</small>
                         </div>
                         <div class="form-group">
                             
                             <label for="name">Name</label>
                             <input type="text" th:field="*{name}" id="name" class="form-control" placeholder="Name"
                                 aria-describedby="nameHid">
-                            <!-- <small id="nameHid" class="text-muted">Tên tài khoản không để trống</small> -->
-                        </div>
+                                <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors = *{name}></small>
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="text" th:field="*{email}" id="email" class="form-control" placeholder="Email"
                                 aria-describedby="emailHid">
-                            <!-- <small id="emailHid" class="text-muted">Email không để trống</small> -->
+                                <small class="form-text text-muted" th:if="${#fields.hasErrors('email')}" th:errors = *{email}></small>
                         </div>
 
-                        <div class="form-group">
-                            <label for="phone">Phone</label>
-                            <input type="text" th:field="*{phone}" id="phone" class="form-control" placeholder="Phone"
-                                aria-describedby="phoneHid">
-                            <!-- <small id="phoneHid" class="text-muted">Số điện thoại không để trống</small> -->
-                        </div>
                      
                     </div>
                     <div class="card-footer text-muted">
-                       
+                        <button type="reset" class="btn btn-secondary">Reset</button>
                         <button class="btn btn-primary" ><i class="fas fa-save"></i> Xác nhận đổi  </button>
                     </div>
                 </div>

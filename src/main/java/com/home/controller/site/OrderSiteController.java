@@ -19,6 +19,7 @@ import com.home.model.CartItem;
 import com.home.model.CategoryDto;
 import com.home.model.OrderDetailDto;
 import com.home.model.OrderDto;
+import com.home.model.ProductDto;
 import com.home.service.OrderDetailService;
 import com.home.service.OrderService;
 import com.home.service.ProductService;
@@ -26,15 +27,18 @@ import com.home.service.ShoppingCartService;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("order")
@@ -73,13 +77,15 @@ public class OrderSiteController {
 	}
 
 	@PostMapping("checkout")
-	public String viewCheck(@ModelAttribute("order") OrderDto dto, Model model) {
+	public String viewCheck(Model model, @Valid @ModelAttribute("order") OrderDto dto,
+			BindingResult result) {
+
+		if (result.hasErrors()) {
+			return "site/order/checkout";
+		}
 		Collection<CartItem> list = cartService.getAllCartItem();
 		List<OrderDetail> details = new ArrayList<>();
-		if (cartService.getAmount() <= 0) {
-			model.addAttribute("message", "bạn chưa chọn mặt hàng cần mua");
-			return "redirect:/cart";
-		}
+		
 		Order order = new Order();
 		BeanUtils.copyProperties(dto, order);
 
@@ -116,9 +122,15 @@ public class OrderSiteController {
 		List<Order> list = orderService.findByCustomerCustomerId(user.getCustomerId(),
 				Sort.by(Direction.DESC, "orderDate"));
 
-		// List<Order> list =
-		// orderService.findByCustomerCustomerId(user.getCustomerId());
 		model.addAttribute("list", list);
+		
+		// kiem tra xem co dang login ko
+				
+				if (user == null) {
+					model.addAttribute("logout", true);
+				} else {
+					model.addAttribute("login", true);
+				}
 
 		return "site/order/list";
 	}

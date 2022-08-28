@@ -24,39 +24,30 @@
                             
                             <label for="customerId">Customer ID:</label>
                             <input type="text" th:field="*{customerId}" id="customerId" class="form-control"
-                                placeholder="Customer ID" aria-describedby="customerHid" readonly>
-                            <small id="customerHid" class="text-muted">Customer id is required</small>
+                                placeholder="Customer ID" readonly>
                         </div>
                         <div class="form-group">
                             <input type="hidden" th:field="*{isEdit}">
                             <label for="name">Name</label>
                             <input type="text" th:field="*{name}" id="name" class="form-control" placeholder="Name"
-                                aria-describedby="nameHid">
-                            <small id="nameHid" class="text-muted">Name is required</small>
+                                >
+                                <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors = *{name}></small>       
                         </div>
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="text" th:field="*{email}" id="email" class="form-control" placeholder="Email"
-                                aria-describedby="emailHid">
-                            <small id="emailHid" class="text-muted">Email is required</small>
+                                >
+                                <small class="form-text text-muted" th:if="${#fields.hasErrors('email')}" th:errors = *{email}></small>   
                         </div>
 
 
                         <div class="form-group">
                             <label for="password">Password</label>
                             <input type="password" th:field="*{password}" id="password" class="form-control"
-                                placeholder="Password" aria-describedby="passwordHid">
-                            <small id="passwordHid" class="text-muted">Password is required</small>
+                                placeholder="Password" >
+                                <small class="form-text text-muted" th:if="${#fields.hasErrors('password')}" th:errors = *{password}></small>   
                         </div>
-                        <div class="form-group">
-                            <label for="phone">Phone</label>
-                            <input type="text" th:field="*{phone}" id="phone" class="form-control" placeholder="Phone"
-                                aria-describedby="phoneHid">
-                            <small id="phoneHid" class="text-muted">Phone is required</small>
-                        </div>
-                     
-
-
+                        
                     </div>
                     <div class="card-footer text-muted">
                         <button type="reset" class="btn btn-secondary">Reset</button>

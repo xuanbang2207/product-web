@@ -34,6 +34,7 @@
                                 <th>Id</th>
                                 <th>Customer</th>
                                 <th>Order Date</th>
+                                <th>Phone</th>
                                 <th>Address</th>
                                 <th>Amount</th>
                                 <th></th>
@@ -44,14 +45,15 @@
                                 
                                 <td th:text="${item.orderId}"></td>
                                 <td th:text="${item.customer.name}"></td>
+                                <td th:text="${item.phone}"></td>
                                 <td th:text="${item.orderDate}">50.3</td>
                                 <td ><span th:text="${item.address}"></span></td>
                                 <td th:text="${item.amount}"></td>
                                 <td>
-                                    <a th:href="@{'/admin/orders/edit/' + ${item.orderId}}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                    <a th:data-id="${item.orderId}" th:data-name="${item.customer.name}"
+                                    <a th:href="@{'/admin/orders/edit/' + ${item.orderId}}" class="btn btn-primary"><i class="fa fa-edit"></i>Detail</a>
+                                    <!-- <a th:data-id="${item.orderId}" th:data-name="${item.customer.name}"
                                     onclick="showConfirmModelDialog(this.getAttribute('data-id'), this.getAttribute('data-name'))"
-                                    class="btn btn-outline-danger"><i class="fas fa-recycle"></i></a>
+                                    class="btn btn-outline-danger"><i class="fas fa-recycle"></i></a> -->
                                 </td>
                             </tr>
                         </tbody>

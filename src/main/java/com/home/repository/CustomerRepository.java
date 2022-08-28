@@ -16,12 +16,11 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
 
 	Customer findByNameAndPassword(String name, String password);
     
-//	Page<Customer> findByNameContaining(String name, Pageable pageable);
-    
 	List<Customer> findByNameContaining(String name);
 	List<Customer> findByActivated(Boolean boolean2);
 	List<Customer> findByAdmin(Boolean boolean1);
 	
+	List<Customer> findByActivatedAndNameContaining(Boolean boolean2, String name);
+	List<Customer> findByAdminAndNameContaining(Boolean boolean1, String name);
 	
-    
 }

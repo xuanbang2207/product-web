@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,11 +18,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ProductDto implements Serializable {
 	private Long productId;
-
+	@NotEmpty(message = "Tên không được để trống")
+	@Length(min = 4, message = "Tên phải từ 4 ký tự trở lên")
 	private String name;
-
+	
 	private int quantity;
-
+	
 	private double unitPrice;
 	private String image;
 
@@ -31,9 +33,10 @@ public class ProductDto implements Serializable {
 	private Integer viewCount = 0;
 
 	private String description;
+	
 	private double discount;
 
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date enteredDate = new Date();
 
 	private Long categoryId;

@@ -84,6 +84,10 @@ public interface CustomerService {
 
 	List<Customer> findByAdmin(Boolean boolean1);
 
+	List<Customer> findByActivatedAndNameContaining(Boolean boolean2, String name);
+
+	List<Customer> findByAdminAndNameContaining(Boolean boolean1, String name);
+
 	
 	
 	

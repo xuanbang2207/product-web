@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javassist.expr.NewArray;
 
@@ -49,6 +50,7 @@ public class CustomerSiteController {
 	@GetMapping("add")
 	public String register(Model model) {
 		CustomerDto dto = new CustomerDto();
+		
 		dto.setIsEdit(false);
 
 		model.addAttribute("customer", dto);
@@ -90,14 +92,19 @@ public class CustomerSiteController {
 	}
 
 	@PostMapping("update")
-	public String update(Model model, @ModelAttribute("customer") CustomerDto dto) {
+	public String update(ModelMap model, 
+			@Valid @ModelAttribute("customer") CustomerDto dto,
+			BindingResult result) {
 
+
+		if (result.hasErrors()) {
+			return "site/account/edit";
+		}
 		Customer user = (Customer) session.getAttribute("user");
 
 		Customer entity = customerService.findByNameAndPassword(user.getName(), user.getPassword());
 
 		entity.setName(dto.getName());
-		entity.setPhone(dto.getPhone());
 		entity.setEmail(dto.getEmail());
 
 		customerService.save(entity);
@@ -117,10 +124,11 @@ public class CustomerSiteController {
 	}
 
 	@PostMapping("save")
-	public ModelAndView save(ModelMap model, @Valid @ModelAttribute("customer") CustomerDto dto, BindingResult result) {
+	public String save(Model model, 
+			@Valid @ModelAttribute("customer") CustomerDto  dto, BindingResult result, RedirectAttributes param) {
 
 		if (result.hasErrors()) {
-			return new ModelAndView("site/account/add");
+			return "site/account/add";
 		}
 
 		Customer entity = new Customer();
@@ -131,9 +139,9 @@ public class CustomerSiteController {
 
 		customerService.save(entity);
 
-		model.addAttribute("message", "Done");
+		param.addAttribute("message", "Đăng ký thàng công, vui lòng login");
 
-		return new ModelAndView("redirect:/account/login", model);
+		return "redirect:/account/login";
 	}
 
 	@GetMapping("change")
@@ -151,6 +159,15 @@ public class CustomerSiteController {
 			model.addAttribute("login", true);
 		}
 
+		
+		// kiem tra xem co dang login ko
+				
+				if (user == null) {
+					model.addAttribute("logout", true);
+				} else {
+					model.addAttribute("login", true);
+				}
+				
 		return "site/account/change";
 	}
 

@@ -113,8 +113,10 @@ public class OrderController {
 	}
 
 	@GetMapping("")
-	public String list(Model model, @RequestParam(defaultValue = "0") Integer page,
-			@RequestParam(defaultValue = "7") Integer size, @RequestParam(defaultValue = "orderDate") String sort) {
+	public String list(Model model, 
+			@RequestParam(defaultValue = "0") Integer page,
+			@RequestParam(defaultValue = "7") Integer size, 
+			@RequestParam(defaultValue = "orderDate") String sort) {
 
 		PageRequest pageable = PageRequest.of(page, size, Direction.DESC, sort);
 

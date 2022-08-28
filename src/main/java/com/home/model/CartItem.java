@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartItem {
+public class CartItem implements Serializable{
 	private Long productId;
 	private String name;
 	private int quantity;

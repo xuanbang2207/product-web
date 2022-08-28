@@ -19,25 +19,25 @@
                 <div class="form-group" th:if="${isEdit}" >
                   <label for="productId">Product ID:</label>
                   <input type="text" class="form-control" th:field="*{productId}" id="productId"
-                    aria-describedby="productIdHid" placeholder="Product ID" readonly>
-                  <small id="productIdHid" class="form-text text-muted">Product ID is required</small>
+                     placeholder="Product ID" readonly>
+                 
                 </div>
                 <div class="form-group">
                   <label for="name">Name</label>
-                  <input type="text" class="form-control" th:field="*{name}" id="name" aria-describedby="nameHid"
+                  <input type="text" class="form-control" th:field="*{name}" id="name" 
                     placeholder="Name">
-                  <small id="nameHid" class="form-text text-muted">Name is required</small>
+                  <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors = *{name}></small>
                 </div>
                 <div class="form-group">
                   <label for="quantity">Quantity</label>
-                  <input type="text" class="form-control" th:field="*{quantity}" id="quantity" aria-describedby="quantityHid"
+                  <input type="number" class="form-control" th:field="*{quantity}" id="quantity"
                     placeholder="Quantity">
-                  <small id="quantityHid" class="form-text text-muted">Quantity is required</small>
+                    <small class="form-text text-muted" th:if="${#fields.hasErrors('quantity')}" th:errors = *{quantity}></small>
                 </div>
                 <div class="input-group form-group">
                   <span class="input-group-text">Unit Price</span>
                   <input type="number" th:field="*{unitPrice}" id="unitPrice" class="form-control" placeholder="Unit Price">
-                  <span class="input-group-text"></span>
+                  <small class="form-text text-muted" th:if="${#fields.hasErrors('unitPrice')}" th:errors = *{unitPrice}></small>
                 </div>
                 <div class="form-group">
                   <label for="categoryId">Category</label>
@@ -50,9 +50,9 @@
                 </div>
                 <div class="form-group">
                   <label for="enteredDate">Create Date</label>
-                  <input type="datetime" class="form-control" th:field="*{enteredDate}" id="enteredDate" aria-describedby="quantityHid"
+                  <input type="datetime" class="form-control" th:field="*{enteredDate}" id="enteredDate" 
                     placeholder="enteredDate">
-                  <small id="quantityHid" class="form-text text-muted">Quantity is required</small>
+                 
                 </div>
                 <div class="form-group">
                   <label for="my-input">View Count</label>
@@ -72,13 +72,14 @@
                   <label for="productImage">Image File</label>
                   <input type="hidden" th:field="*{image}" >
                   <input type="file" onchange="chooseFile(this)" class="form-control-file" th:object="${imageFile}"  name="imageFile" id="productImage"
-                    placeholder="Product Image" aria-describedby="productImage">
-                  <small id="productImage" class="form-text text-muted">Product is required</small>
+                    placeholder="Product Image">
+                 
                 </div>
                 <div class="input-group form-group">
                   <span class="input-group-text">Discount</span>
                   <input type="number" th:field="*{discount}" id="discount" class="form-control" placeholder="Discount">
                   <span class="input-group-text">%</span>
+                 
                 </div>
                 
                

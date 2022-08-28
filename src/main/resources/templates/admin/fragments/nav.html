@@ -15,9 +15,6 @@
               <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 
                 <li class="nav-item">
-                  <a class="nav-link" th:href="@{/admin/accounts/all}">Manage Customer</a>
-                </li>
-                <li class="nav-item">
                   <a class="nav-link" th:href="@{/admin/categories}">Manage Category</a>
                 </li>
                 <li class="nav-item">
@@ -29,12 +26,13 @@
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" th:href="@{/}" id="navbarDropdownMenuLink" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>
-                    Profile
+                    Manage Customer
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    
+                    <a class="dropdown-item" th:href="@{/admin/accounts/all}">All List Customer</a>
                     <a class="dropdown-item" th:href="@{/admin/accounts/ad}">List Admin</a>
-                      <a class="dropdown-item" th:href="@{/admin/accounts/add}">Add Admin</a>
+                    <a class="dropdown-item" th:href="@{/admin/accounts/user}">List User</a>
+                      <!-- <a class="dropdown-item" th:href="@{/admin/accounts/add}">Add Admin</a> -->
                       <a class="dropdown-item"  th:href="@{/accountAdmin/logout}">Logout</a> 
                     </div>
                     

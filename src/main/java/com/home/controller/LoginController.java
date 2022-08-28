@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import com.home.domain.Customer;
 import com.home.model.AccountDto;
+import com.home.model.CustomerDto;
 import com.home.service.CookieService;
 import com.home.service.CustomerService;
 
@@ -33,7 +34,7 @@ public class LoginController {
 
 	@GetMapping("login")
 	public String login(Model model) {
-		AccountDto dto = new AccountDto();
+		CustomerDto dto = new CustomerDto();
 
 		Cookie ckname = cookieService.read("name");
 		Cookie ckpassword = cookieService.read("password");
@@ -60,11 +61,11 @@ public class LoginController {
 	}
 
 	@PostMapping("login")
-	public ModelAndView login(ModelMap model, @Valid @ModelAttribute("account") AccountDto dto, BindingResult result) {
+	public ModelAndView login(ModelMap model, @Valid @ModelAttribute("account") CustomerDto dto, BindingResult result) {
 
-		if (result.hasErrors()) {
-			return new ModelAndView("/site/account/login");
-		}
+//		if (result.hasErrors()) {
+//			return new ModelAndView("/site/account/login");
+//		}
 		Customer opt = customerService.findByNameAndPassword(dto.getName(), dto.getPassword());
 
 		if (opt == null) {
@@ -77,6 +78,7 @@ public class LoginController {
 
 			model.addAttribute("message", "Đăng nhập thành công");
 			session.setAttribute("user", opt);
+			System.out.println("admin dang nhap thanh cong");
 
 			// Ghi nhớ tài khoản bằng cookie
 			if (dto.getRememberMe() == true) {
@@ -92,6 +94,15 @@ public class LoginController {
 			if (backUri != null) {
 				session.removeAttribute("back-uri");
 				return new ModelAndView("redirect:" + backUri);
+			}
+			
+			// kiem tra xem co dang login ko
+			Customer user = (Customer) session.getAttribute("user");
+			if (user == null) {
+				model.addAttribute("logout", true);
+
+			} else {
+				model.addAttribute("login", true);
 			}
 
 		}

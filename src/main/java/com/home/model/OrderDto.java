@@ -1,6 +1,10 @@
 package com.home.model;
 
+import java.io.Serializable;
 import java.util.Date;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import com.home.domain.Customer;
 
@@ -13,15 +17,19 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDto {
+public class OrderDto implements Serializable {
 	private Long orderId;
 
-	@DateTimeFormat(pattern = "MM/dd/yyyy")
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	private Date orderDate;
 	private Long customerId;
 	private double amount;
 	private String description;
+	@NotEmpty(message = "Địa chỉ không được để trống")
 	private String address;
+	@NotEmpty(message = "Số điện thoại thì không được để trống")
+	private String phone;
+	
 	private String name;
 
 	private Boolean isEdit = false;

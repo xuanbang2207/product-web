@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import com.home.domain.Customer;
 import com.home.model.AccountDto;
+import com.home.model.CustomerDto;
 import com.home.service.CookieService;
 import com.home.service.CustomerService;
 
@@ -33,7 +34,7 @@ public class AdminLoginController {
 
 	@GetMapping("login")
 	public String login(Model model) {
-		AccountDto dto = new AccountDto();
+		CustomerDto dto = new CustomerDto();
 
 		Cookie ckname = cookieService.read("adname");
 		Cookie ckpassword = cookieService.read("adpassword");
@@ -60,11 +61,11 @@ public class AdminLoginController {
 	}
 
 	@PostMapping("login")
-	public ModelAndView login(ModelMap model, @Valid @ModelAttribute("account") AccountDto dto, BindingResult result) {
+	public ModelAndView login(ModelMap model,@Valid @ModelAttribute("account") CustomerDto dto, BindingResult result) {
 
-		if (result.hasErrors()) {
-			return new ModelAndView("/admin/accounts/login");
-		}
+//		if (result.hasErrors()) {
+//			return new ModelAndView("/admin/accounts/login");
+//		}
 		Customer opt = customerService.findByNameAndPassword(dto.getName(), dto.getPassword());
 
 		if (opt == null) {

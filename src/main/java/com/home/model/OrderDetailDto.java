@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDetailDto {
+public class OrderDetailDto implements Serializable{
 	private Long orderDetailId;
 	private Long orderId;
 	private Long productId;

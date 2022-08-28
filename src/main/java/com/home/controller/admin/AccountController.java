@@ -106,13 +106,26 @@ public class AccountController {
 		List<Customer> list = customerService.findByAdmin(true);
 
 		model.addAttribute("accounts", list);
+		model.addAttribute("role", true);
+		
 
+		return "admin/accounts/list";
+	}
+	@GetMapping("user")
+	public String listUser(Model model) {
+		List<Customer> list = customerService.findByAdmin(false);
+
+		model.addAttribute("accounts", list);
+		model.addAttribute("role", false);
+		
 		return "admin/accounts/list";
 	}
 
 	@GetMapping("all")
-	public String list(ModelMap model, @RequestParam(defaultValue = "0") Integer page,
-			@RequestParam(defaultValue = "5") Integer size, @RequestParam(defaultValue = "name") String sort) {
+	public String listAll(ModelMap model, 
+			@RequestParam(defaultValue = "0") Integer page,
+			@RequestParam(defaultValue = "7") Integer size, 
+			@RequestParam(defaultValue = "name") String sort) {
 		Pageable pageable = PageRequest.of(page, size, Sort.by(sort));
 
 		Page<Customer> pages = customerService.findAll(pageable);
@@ -124,7 +137,9 @@ public class AccountController {
 	}
 
 	@GetMapping("search")
-	public String search(ModelMap model, @RequestParam(name = "name", defaultValue = "") String name) {
+	public String search(ModelMap model, 
+			@RequestParam(name = "name", defaultValue = "") String name
+			) {
 
 		List<Customer> list = customerService.findByNameContaining(name);
 
