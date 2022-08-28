@@ -39,11 +39,11 @@
                 Tài Khoản
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <div th:if="${logout}">
+                <div th:if="${session.user == null}" >
                   <a class="dropdown-item" th:href="@{/account/login}">Đăng Nhập</a>
                   <a class="dropdown-item" th:href="@{/account/add}">Đăng ký</a>
                 </div>
-                <div th:if="${login}">
+                <div th:unless="${session.user == null}">
                   <a class="dropdown-item" th:href="@{/account/logout}">Đăng xuất</a>
                   <a class="dropdown-item" th:href="@{/account/change}" >Đổi mật khẩu</a>
                   <a class="dropdown-item" th:href="@{/account/edit}">Cập nhật</a>

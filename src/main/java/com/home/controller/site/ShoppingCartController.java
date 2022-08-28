@@ -40,13 +40,7 @@ public class ShoppingCartController {
 		model.addAttribute("amount", amonut);
 		model.addAttribute("items", items);
 
-		// kiem tra xem co dang login ko
-		Customer user = (Customer) session.getAttribute("user");
-		if (user == null) {
-			model.addAttribute("logout", true);
-		} else {
-			model.addAttribute("login", true);
-		}
+		
 		return "site/cart/viewCart";
 	}
 

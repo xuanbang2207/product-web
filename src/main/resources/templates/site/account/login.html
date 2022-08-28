@@ -18,6 +18,9 @@
           </div>
           <div th:if="${message != null}" class="alert alert-primary" role="alert">
             <i th:text="${message}">message</i>
+            <div th:if="${param.params != null}" class="alert alert-primary" role="alert">
+              <i th:text="${param.params}">params</i>
+          </div>
           </div>
           <div class="card-body">
 
@@ -40,7 +43,7 @@
               </label>
             </div>
 
-          </div>
+          </div>/
           <div class="card-footer text-muted">
             <button type="reset" class="btn btn-secondary">Reset</button>
 

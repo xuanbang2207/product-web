@@ -254,14 +254,7 @@ public class ProductSiteController {
 		int numcart = cartService.getCount();
 		model.addAttribute("numcart", numcart);
 
-		// kiem tra xem co dang login ko
-		Customer user = (Customer) session.getAttribute("user");
-		if (user == null) {
-			model.addAttribute("logout", true);
-		} else {
-			model.addAttribute("login", true);
-		}
-
+		
 		model.addAttribute("name", name);
 		model.addAttribute("sort", sort);
 

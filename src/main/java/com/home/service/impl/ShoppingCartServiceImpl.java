@@ -10,7 +10,7 @@ import com.home.service.ShoppingCartService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
-@Service // Name:  scopedTarget.shoppingCartService
+@Service() // Name:  scopedTarget.shoppingCartService
 @SessionScope
 public class ShoppingCartServiceImpl implements ShoppingCartService {
 	Map<Long, CartItem> maps = new HashMap<>(); // danh sach gio hang

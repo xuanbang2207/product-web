@@ -13,7 +13,7 @@
 
                 <a th:href="@{'/detail/' +  ${product.productId} }">
                     <img id="image"
-                        th:src="${product.image!= null? '/admin/products/images/' + product.image : '/images/chuot.jpg'}"
+                        th:src="${product.image!= null? '/images/' + product.image : '/images/chuot.jpg'}"
                         width="100%" class="img-fluid" alt="" height="150">
                 </a>
 

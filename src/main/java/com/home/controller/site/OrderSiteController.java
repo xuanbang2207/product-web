@@ -124,14 +124,6 @@ public class OrderSiteController {
 
 		model.addAttribute("list", list);
 		
-		// kiem tra xem co dang login ko
-				
-				if (user == null) {
-					model.addAttribute("logout", true);
-				} else {
-					model.addAttribute("login", true);
-				}
-
 		return "site/order/list";
 	}
 

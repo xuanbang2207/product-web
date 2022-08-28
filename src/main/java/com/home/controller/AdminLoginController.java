@@ -48,15 +48,7 @@ public class AdminLoginController {
 		}
 		model.addAttribute("account", dto);
 
-		// kiem tra xem co dang login ko
-		Customer user = (Customer) session.getAttribute("user");
-		if (user == null) {
-			model.addAttribute("logout", true);
-
-		} else {
-			model.addAttribute("login", true);
-		}
-
+		
 		return "admin/accounts/login";
 	}
 
@@ -80,6 +72,7 @@ public class AdminLoginController {
 
 			model.addAttribute("message", "Đăng nhập thành công");
 			session.setAttribute("admin", opt);
+			System.out.println("Admin đăng nhập thành công");
 
 			// Ghi nhớ tài khoản bằng cookie
 			if (dto.getRememberMe() == true) {

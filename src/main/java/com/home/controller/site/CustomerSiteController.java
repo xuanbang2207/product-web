@@ -55,14 +55,6 @@ public class CustomerSiteController {
 
 		model.addAttribute("customer", dto);
 
-		// kiem tra xem co dang login ko
-		Customer user = (Customer) session.getAttribute("user");
-		if (user == null) {
-			model.addAttribute("logout", true);
-		} else {
-			model.addAttribute("login", true);
-		}
-
 		return "site/account/add";
 	}
 
@@ -79,14 +71,6 @@ public class CustomerSiteController {
 		BeanUtils.copyProperties(entity, dto);
 		dto.setIsEdit(true);
 		model.addAttribute("customer", dto);
-
-		// kiem tra xem co dang login ko
-		Customer user2 = (Customer) session.getAttribute("user");
-		if (user2 == null) {
-			model.addAttribute("logout", true);
-		} else {
-			model.addAttribute("login", true);
-		}
 
 		return "site/account/edit";
 	}
@@ -112,14 +96,6 @@ public class CustomerSiteController {
 		model.addAttribute("message", "Cập nhật thành công");
 		session.setAttribute("user", entity);
 
-		// kiem tra xem co dang login ko
-		Customer user2 = (Customer) session.getAttribute("user");
-		if (user2 == null) {
-			model.addAttribute("logout", true);
-		} else {
-			model.addAttribute("login", true);
-		}
-
 		return "site/account/edit";
 	}
 
@@ -139,7 +115,7 @@ public class CustomerSiteController {
 
 		customerService.save(entity);
 
-		param.addAttribute("message", "Đăng ký thàng công, vui lòng login");
+		param.addAttribute("params", "Đăng ký thàng công, vui lòng login");
 
 		return "redirect:/account/login";
 	}
@@ -150,24 +126,7 @@ public class CustomerSiteController {
 		Customer user = (Customer) session.getAttribute("user");
 		form.setName(user.getName());
 		model.addAttribute("form", form);
-
-		// kiem tra xem co dang login ko
-		Customer user2 = (Customer) session.getAttribute("user");
-		if (user2 == null) {
-			model.addAttribute("logout", true);
-		} else {
-			model.addAttribute("login", true);
-		}
-
-		
-		// kiem tra xem co dang login ko
-				
-				if (user == null) {
-					model.addAttribute("logout", true);
-				} else {
-					model.addAttribute("login", true);
-				}
-				
+	
 		return "site/account/change";
 	}
 
@@ -196,13 +155,6 @@ public class CustomerSiteController {
 		System.out.println(entity.getPassword());
 		model.addAttribute("message", "Đổi mật khẩu thành công");
 
-		// kiem tra xem co dang login ko
-		Customer user2 = (Customer) session.getAttribute("user");
-		if (user2 == null) {
-			model.addAttribute("logout", true);
-		} else {
-			model.addAttribute("login", true);
-		}
 
 		return "site/account/change";
 	}

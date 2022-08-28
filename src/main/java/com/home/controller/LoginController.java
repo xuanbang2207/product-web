@@ -48,15 +48,7 @@ public class LoginController {
 		}
 		model.addAttribute("account", dto);
 
-		// kiem tra xem co dang login ko
-		Customer user = (Customer) session.getAttribute("user");
-		if (user == null) {
-			model.addAttribute("logout", true);
-
-		} else {
-			model.addAttribute("login", true);
-		}
-
+		
 		return "site/account/login";
 	}
 
@@ -78,7 +70,7 @@ public class LoginController {
 
 			model.addAttribute("message", "Đăng nhập thành công");
 			session.setAttribute("user", opt);
-			System.out.println("admin dang nhap thanh cong");
+			System.out.println("user dang nhap thanh cong");
 
 			// Ghi nhớ tài khoản bằng cookie
 			if (dto.getRememberMe() == true) {
@@ -96,15 +88,7 @@ public class LoginController {
 				return new ModelAndView("redirect:" + backUri);
 			}
 			
-			// kiem tra xem co dang login ko
-			Customer user = (Customer) session.getAttribute("user");
-			if (user == null) {
-				model.addAttribute("logout", true);
-
-			} else {
-				model.addAttribute("login", true);
-			}
-
+			
 		}
 
 		return new ModelAndView("/site/account/login", model);
