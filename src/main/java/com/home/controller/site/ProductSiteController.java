@@ -117,7 +117,7 @@ public class ProductSiteController {
 
 			// tìm sản phẩm cùng loại
 			List<Product> list = productService.findByCategoryCategoryId(entity.getCategory().getCategoryId());
-			model.addAttribute("list", list);
+			model.addAttribute("cate", list);
 
 			// tìm sản phẩm đc đánh dấu thích
 			Cookie cookie = cookieService.read("favo");
@@ -130,7 +130,7 @@ public class ProductSiteController {
 //				System.out.println(nameList);
 				List<Product> prods = productService.findByNameIn(nameList);
 
-				model.addAttribute("prods", prods);
+				model.addAttribute("favo", prods);
 			}
 
 		}
