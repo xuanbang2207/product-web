@@ -7,5 +7,6 @@ Project website bán hàng đơn giản có các chức năng :
 + authentication login/logout cho user và admin, thêm mới, sửa và xóa tài khoản, ghi nhớ tài khoản trên cookie
 + admin có thể thêm sửa xóa mặt hàng, sản phẩm và hóa đơn
 + phân trang và tìm kiếm, validate
-Có sử dụng:  Spring boot, thymleaf, java script, css, html, bootstrap, SQl server. lombook
+
+=>Có sử dụng:  Spring boot, thymleaf, java script, css, html, bootstrap, SQl server. lombook
        Xin cảm ơn!!!!
