@@ -55,9 +55,6 @@ public class AdminLoginController {
 	@PostMapping("login")
 	public ModelAndView login(ModelMap model,@Valid @ModelAttribute("account") CustomerDto dto, BindingResult result) {
 
-//		if (result.hasErrors()) {
-//			return new ModelAndView("/admin/accounts/login");
-//		}
 		Customer opt = customerService.findByNameAndPassword(dto.getName(), dto.getPassword());
 
 		if (opt == null) {

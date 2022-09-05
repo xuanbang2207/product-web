@@ -25,8 +25,8 @@
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" th:href="@{/}" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>
-                    Manage Customer
+                    aria-haspopup="true" aria-expanded="false" ><i class="fas fa-user"></i>
+                    Hello:<span th:text="${session.admin.name}"></span>
                   </a>
                   <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" th:href="@{/admin/accounts/all}">All List Customer</a>

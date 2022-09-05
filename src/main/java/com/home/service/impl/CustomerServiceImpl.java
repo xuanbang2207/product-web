@@ -212,6 +212,11 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerRepository.findByAdminAndNameContaining(boolean1, name);
 	}
 
+	@Override
+	public Optional<Customer> findByNameAndEmail(String name, String email) {
+		return customerRepository.findByNameAndEmail(name, email);
+	}
+
 	
    
 

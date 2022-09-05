@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{site/dashboardLayoutHome.html}">
+
+<head>
+
+</head>
+
+<body>
+
+  <section class="row" layout:fragment="content">
+    <div class="col-8 offset-2 mt-4">
+      <form th:action="@{/account/send-password}" method="post" th:object="${form}">
+
+        <div class="card">
+          <div class="card-header">
+            <h2 >Forgot Password</h2>
+          </div>
+          <div class="card-body">
+            <div th:if="${message != null}" class="alert alert-primary" role="alert">
+              <i th:text="${message}">message</i>
+            </div>
+           
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" th:field="*{name}" id="name" class="form-control" placeholder="Name" >
+                <small class="form-text text-muted" th:if="${#fields.hasErrors('name')}" th:errors = *{name}></small>
+            </div>
+            <div class="form-group">
+              <label for="email">Email </label>
+              <input type="text" th:field="*{email}" id="email" class="form-control" placeholder="Email">
+                <small class="form-text text-muted" th:if="${#fields.hasErrors('email')}" th:errors = *{email}></small>
+            </div>
+            
+          </div>
+          <div class="card-footer text-muted">
+            <button type="reset" class="btn btn-secondary">Reset</button>        
+            <button class="btn btn-primary"><i class="fas fa-save"></i>
+              <span >Send</span>
+              
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+
+</body>
+
+</html>

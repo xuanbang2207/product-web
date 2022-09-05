@@ -15,15 +15,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CustomerDto implements Serializable{
 	private Long customerId;
+	
 	@NotEmpty(message =  "Tên không được để trống")
 	private String name;
+	
 	@NotEmpty(message = "email không được để trống")
 	@Email(message = "Chưa đúng định dạng email")
 	private String email;
 	@NotEmpty(message = "password không được để trống")
 	private String password;
 	
-	private Boolean activated = true;
+	private Boolean activated = false;
 	private Boolean admin = false;
 
 	private Boolean rememberMe;

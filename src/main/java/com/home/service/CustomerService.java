@@ -88,6 +88,8 @@ public interface CustomerService {
 
 	List<Customer> findByAdminAndNameContaining(Boolean boolean1, String name);
 
+	Optional<Customer> findByNameAndEmail(String name, String email);
+
 	
 	
 	

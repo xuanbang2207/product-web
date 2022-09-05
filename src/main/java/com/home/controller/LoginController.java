@@ -55,9 +55,7 @@ public class LoginController {
 	@PostMapping("login")
 	public ModelAndView login(ModelMap model, @Valid @ModelAttribute("account") CustomerDto dto, BindingResult result) {
 
-//		if (result.hasErrors()) {
-//			return new ModelAndView("/site/account/login");
-//		}
+
 		Customer opt = customerService.findByNameAndPassword(dto.getName(), dto.getPassword());
 
 		if (opt == null) {

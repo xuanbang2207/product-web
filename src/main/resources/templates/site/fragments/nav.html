@@ -34,13 +34,14 @@
               <a class="nav-link" th:href="@{/FAQs}"><i class="fas fa-question"></i> Hỏi Đáp</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" th:href="@{/}" id="navbarDropdownMenuLink" data-toggle="dropdown"
+              <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i>
                 Tài Khoản
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <div th:if="${session.user == null}" >
                   <a class="dropdown-item" th:href="@{/account/login}">Đăng Nhập</a>
+                  <a class="dropdown-item" th:href="@{/account/send-password}">Quên mật khẩu</a>
                   <a class="dropdown-item" th:href="@{/account/add}">Đăng ký</a>
                 </div>
                 <div th:unless="${session.user == null}">
@@ -49,11 +50,12 @@
                   <a class="dropdown-item" th:href="@{/account/edit}">Cập nhật</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" th:href="@{/order/list}">Đơn hàng</a>
-                  
+                  <a href=""></a>
                 </div>
                 
               </div>
             </li>
+            
             <li class="nav-item ml-3">
               <a class="nav-link" th:href="@{/cart}">
                 <span class="">Giỏ hàng</span>
